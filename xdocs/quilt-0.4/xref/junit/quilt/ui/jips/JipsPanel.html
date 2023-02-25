@@ -1,0 +1,147 @@
+<html>
+<body bgcolor="white">
+<pre>
+<table bgcolor="#FFFFCC" cellpadding="0" cellspacing="0" border="0" width="100%"><a href="../../../../../apidocs/junit/quilt/ui/jips/JipsPanel.html">View Javadoc</a></table>
+<a name="1" href="#1">1</a>   <b>package</b> <a href="../../../../junit/quilt/ui/jips/index.html">junit.quilt.ui.jips</a>;
+<a name="2" href="#2">2</a>   
+<a name="3" href="#3">3</a>   <b>import</b> java.awt.Component;
+<a name="4" href="#4">4</a>   <b>import</b> java.awt.GridLayout;
+<a name="5" href="#5">5</a>   <b>import</b> java.awt.BorderLayout;
+<a name="6" href="#6">6</a>   
+<a name="7" href="#7">7</a>   <b>import</b> java.util.Map;
+<a name="8" href="#8">8</a>   <b>import</b> java.util.Timer;
+<a name="9" href="#9">9</a>   <b>import</b> java.util.HashMap;
+<a name="10" href="#10">10</a>  <b>import</b> java.util.TimerTask;
+<a name="11" href="#11">11</a>  
+<a name="12" href="#12">12</a>  <b>import</b> javax.swing.*;
+<a name="13" href="#13">13</a>  <b>import</b> javax.swing.tree.*;
+<a name="14" href="#14">14</a>  <b>import</b> javax.swing.event.*;
+<a name="15" href="#15">15</a>  
+<a name="16" href="#16">16</a>  <b>import</b> <a href="../../../../junit/quilt/util/index.html">junit.quilt.util</a>.*;
+<a name="17" href="#17">17</a>  
+<a name="18" href="#18">18</a>  <b>import</b> <a href="../../../../junit/quilt/cover/ball94/index.html">junit.quilt.cover.ball94</a>.*;
+<a name="19" href="#19">19</a>  
+<a name="20" href="#20">20</a>  <b>public</b> <b>class</b> <a href="../../../../junit/quilt/ui/jips/JipsPanel.html">JipsPanel</a>
+<a name="21" href="#21">21</a>      <b>extends</b> JPanel
+<a name="22" href="#22">22</a>      implements <a href="../../../../junit/quilt/util/RegistryBrowserAware.html">RegistryBrowserAware</a>
+<a name="23" href="#23">23</a>  {
+<a name="24" href="#24">24</a>      <b>private</b> <a href="../../../../junit/quilt/util/RegistryBrowser.html">RegistryBrowser</a> browser = <b>null</b>;
+<a name="25" href="#25">25</a>      <font color="#329900"><i>//private JPanel outputPanel = new JPanel();</font></i>
+<a name="26" href="#26">26</a>      <b>private</b> JProgressBar progress = <b>new</b> JProgressBar();
+<a name="27" href="#27">27</a>      <b>private</b> Timer sched = <b>new</b> Timer(<b>true</b>);
+<a name="28" href="#28">28</a>      
+<a name="29" href="#29">29</a>      <b>private</b> B94Registry registry = <b>null</b>;
+<a name="30" href="#30">30</a>      <font color="#329900"><i>//private B94Collector b94c = null;</font></i>
+<a name="31" href="#31">31</a>      <font color="#329900"><i>//private int instLengths[] = null;</font></i>
+<a name="32" href="#32">32</a>  
+<a name="33" href="#33">33</a>      <b>private</b> TreeSL listener = <b>null</b>;
+<a name="34" href="#34">34</a>  
+<a name="35" href="#35">35</a>      <font color="#329900"><i>//private Map lastReadTime = new HashMap(); // Collector X Time</font></i>
+<a name="36" href="#36">36</a>      <font color="#329900"><i>//private Map lastReadScore = new HashMap(); // Collector X Value</font></i>
+<a name="37" href="#37">37</a>  
+<a name="38" href="#38">38</a>      <b>private</b> <b>class</b> Updater <b>extends</b> TimerTask
+<a name="39" href="#39">39</a>      {
+<a name="40" href="#40">40</a>  	<b>private</b> <a href="../../../../junit/quilt/ui/jips/JipsPanel.html">JipsPanel</a> jips = <b>null</b>;
+<a name="41" href="#41">41</a>  
+<a name="42" href="#42">42</a>  	<b>public</b> Updater( JipsPanel jips ) {
+<a name="43" href="#43">43</a>  	    <b>this</b>.jips = jips;
+<a name="44" href="#44">44</a>  	}
+<a name="45" href="#45">45</a>  
+<a name="46" href="#46">46</a>  	<b>public</b> <b>void</b> run() {
+<a name="47" href="#47">47</a>  	    jips.updateScore();
+<a name="48" href="#48">48</a>  	}
+<a name="49" href="#49">49</a>      }
+<a name="50" href="#50">50</a>  
+<a name="51" href="#51">51</a>      <b>private</b> <b>class</b> TreeSL implements TreeSelectionListener 
+<a name="52" href="#52">52</a>      {
+<a name="53" href="#53">53</a>  	<b>private</b> <a href="../../../../junit/quilt/ui/jips/JipsPanel.html">JipsPanel</a> jips = <b>null</b>;
+<a name="54" href="#54">54</a>  	
+<a name="55" href="#55">55</a>  	<b>public</b> TreeSL( JipsPanel jips ) {
+<a name="56" href="#56">56</a>  	    <b>this</b>.jips = jips;
+<a name="57" href="#57">57</a>  	}
+<a name="58" href="#58">58</a>  
+<a name="59" href="#59">59</a>  	<b>public</b> <b>void</b> valueChanged( TreeSelectionEvent tse ) {
+<a name="60" href="#60">60</a>  	    <b>if</b> (tse.getPath() != <b>null</b>) {
+<a name="61" href="#61">61</a>  		<b>if</b> (registry.getCollector( tse.getPath() ) != <b>null</b>) {
+<a name="62" href="#62">62</a>  		    jips.changeCollector((B94Collector) registry.
+<a name="63" href="#63">63</a>  					 getCollector(tse.getPath()));
+<a name="64" href="#64">64</a>  		}
+<a name="65" href="#65">65</a>  	    }
+<a name="66" href="#66">66</a>  	}
+<a name="67" href="#67">67</a>      }
+<a name="68" href="#68">68</a>  
+<a name="69" href="#69">69</a>      <b>public</b> <a href="../../../../junit/quilt/ui/jips/JipsPanel.html">JipsPanel</a>() {
+<a name="70" href="#70">70</a>  	setLayout( <b>new</b> BorderLayout() );
+<a name="71" href="#71">71</a>  	listener = <b>new</b> TreeSL( <b>this</b> );
+<a name="72" href="#72">72</a>  
+<a name="73" href="#73">73</a>  	progress.setMinimum( 0 );
+<a name="74" href="#74">74</a>  	progress.setMaximum( 1000 );
+<a name="75" href="#75">75</a>  
+<a name="76" href="#76">76</a>  	JPanel north = <b>new</b> JPanel( <b>new</b> BorderLayout() );
+<a name="77" href="#77">77</a>  	north.add( <b>new</b> JLabel(<font color="#000099">"JIPS (x 10000)"</font>), 
+<a name="78" href="#78">78</a>  		   BorderLayout.WEST );
+<a name="79" href="#79">79</a>  	north.add( progress, BorderLayout.CENTER );
+<a name="80" href="#80">80</a>  
+<a name="81" href="#81">81</a>  	add( north, BorderLayout.NORTH );
+<a name="82" href="#82">82</a>  	add( <b>new</b> JPanel(), BorderLayout.CENTER );
+<a name="83" href="#83">83</a>  
+<a name="84" href="#84">84</a>  	TimerTask updater = <b>new</b> Updater( <b>this</b> );
+<a name="85" href="#85">85</a>  	sched.schedule( updater, 50, 50 );
+<a name="86" href="#86">86</a>      }
+<a name="87" href="#87">87</a>  
+<a name="88" href="#88">88</a>      <b>public</b> <b>void</b> changeCollector( B94Collector collector ) {
+<a name="89" href="#89">89</a>  	<font color="#329900"><i>//	b94c = collector;</font></i>
+<a name="90" href="#90">90</a>  	<font color="#329900"><i>//	instLengths = b94c.getInstructionLengths();</font></i>
+<a name="91" href="#91">91</a>      }
+<a name="92" href="#92">92</a>  
+<a name="93" href="#93">93</a>  
+<a name="94" href="#94">94</a>      <b>public</b> <b>void</b> updateScore() {
+<a name="95" href="#95">95</a>  <font color="#329900"><i>//  	if (b94c == null) return;</font></i>
+<a name="96" href="#96">96</a>  
+<a name="97" href="#97">97</a>  <font color="#329900"><i>//  	int data[] = b94c.newStats();</font></i>
+<a name="98" href="#98">98</a>  	
+<a name="99" href="#99">99</a>  <font color="#329900"><i>//  	long thisTime = b94c.getStats( data );</font></i>
+<a name="100" href="#100">100</a> <font color="#329900"><i>//  	long thisScore = 0;</font></i>
+<a name="101" href="#101">101</a> 	
+<a name="102" href="#102">102</a> <font color="#329900"><i>//  	for (int i = 0; i &lt; data.length; i++) {</font></i>
+<a name="103" href="#103">103</a> <font color="#329900"><i>//  	    thisScore += instLengths[i] * data[i];</font></i>
+<a name="104" href="#104">104</a> <font color="#329900"><i>//  	}</font></i>
+<a name="105" href="#105">105</a> 	
+<a name="106" href="#106">106</a> <font color="#329900"><i>//  	long lastTime = 0;</font></i>
+<a name="107" href="#107">107</a> <font color="#329900"><i>//  	long lastScore = 0;</font></i>
+<a name="108" href="#108">108</a> 	
+<a name="109" href="#109">109</a> <font color="#329900"><i>//  	if (lastReadTime.containsKey( b94c )) {</font></i>
+<a name="110" href="#110">110</a> <font color="#329900"><i>//  	    lastTime = ((Long) lastReadTime.get( b94c ))</font></i>
+<a name="111" href="#111">111</a> <font color="#329900"><i>//  		.longValue();</font></i>
+<a name="112" href="#112">112</a> <font color="#329900"><i>//  	    lastReadTime.remove( b94c );</font></i>
+<a name="113" href="#113">113</a> <font color="#329900"><i>//  	}</font></i>
+<a name="114" href="#114">114</a> <font color="#329900"><i>//  	lastReadTime.put( b94c, new Long( thisTime ));</font></i>
+<a name="115" href="#115">115</a> 	
+<a name="116" href="#116">116</a> 	
+<a name="117" href="#117">117</a> <font color="#329900"><i>//  	if (lastReadScore.containsKey( b94c )) {</font></i>
+<a name="118" href="#118">118</a> <font color="#329900"><i>//  	    lastScore = ((Long) lastReadScore.get( b94c ))</font></i>
+<a name="119" href="#119">119</a> <font color="#329900"><i>//  		.longValue();</font></i>
+<a name="120" href="#120">120</a> <font color="#329900"><i>//  	    lastReadScore.remove( b94c );</font></i>
+<a name="121" href="#121">121</a> <font color="#329900"><i>//  	}</font></i>
+<a name="122" href="#122">122</a> 	
+<a name="123" href="#123">123</a> <font color="#329900"><i>//  	lastReadScore.put( b94c, new Long( thisScore ) );</font></i>
+<a name="124" href="#124">124</a> 	
+<a name="125" href="#125">125</a> <font color="#329900"><i>//  	double rate =</font></i>
+<a name="126" href="#126">126</a> <font color="#329900"><i>//  	    (double) (thisScore - lastScore) /</font></i>
+<a name="127" href="#127">127</a> <font color="#329900"><i>//  	    (double) (thisTime - lastTime) *</font></i>
+<a name="128" href="#128">128</a> <font color="#329900"><i>//  	    1000.00;</font></i>
+<a name="129" href="#129">129</a> 
+<a name="130" href="#130">130</a> <font color="#329900"><i>//  	Double RC = new Double( rate / 100000 );</font></i>
+<a name="131" href="#131">131</a> <font color="#329900"><i>//	progress.setValue( RC.intValue() );</font></i>
+<a name="132" href="#132">132</a>     }
+<a name="133" href="#133">133</a> 
+<a name="134" href="#134">134</a>     <b>public</b> <b>void</b> setRegistryBrowser( RegistryBrowser browser ) {
+<a name="135" href="#135">135</a> 	<b>this</b>.browser = browser;
+<a name="136" href="#136">136</a> 	<b>this</b>.registry = (B94Registry) browser.getRegistry();
+<a name="137" href="#137">137</a> 	browser.getTree().addTreeSelectionListener( listener );
+<a name="138" href="#138">138</a>     }
+<a name="139" href="#139">139</a> }
+</pre>
+<hr><center>This page was automatically generated by <a href="http://jakarta.apache.org/turbine/maven">Maven</a></center></body>
+</html>
+

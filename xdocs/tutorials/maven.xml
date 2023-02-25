@@ -1,0 +1,21 @@
+<document>
+  <properties>
+    <title>Maven Tutorial</title>
+      <author email="jddixon@users.sourceforge.net">Jim Dixon</author>
+  </properties>
+  <body>
+    <section name="Maven Tutorial">
+
+
+
+
+
+      <!-- keep at the bottom -->
+      <hr/>
+        <em>This material is copyright 2003 by James David Dixon 
+        ("Jim Dixon") and is made available under the 
+        <a href="community/artistic-license.html">Artistic License</a>.</em>
+    </section>
+  </body>
+</document>
+      

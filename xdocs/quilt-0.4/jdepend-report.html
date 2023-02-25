@@ -1,0 +1,3264 @@
+  <!DOCTYPE html PUBLIC "-//CollabNet//DTD XHTML 1.0 Transitional//EN"
+      "http://www.collabnet.com/dtds/collabnet_transitional_10.dtd">
+
+  
+    
+    
+      
+  
+
+  <html>
+    <head>
+      <title>JUnit Quilt - JDepend Source Code Analysis</title>
+
+      <style type="text/css">
+        @import url("./style/tigris.css");
+        @import url("./style/maven.css");
+      </style>
+      <script type="text/javascript">
+        if (document.layers) {
+          document.writeln('<link rel="stylesheet" type="text/css" href="./style/ns4_only.css" media="screen" /><link rel="stylesheet" type="text/css" href="./style/maven_ns4_only.css" media="screen" />')
+        }
+      </script>
+      <link rel="stylesheet" type="text/css" href="./style/print.css" media="print" />
+
+      
+    </head>
+
+    <body class="composite" marginwidth="0" marginheight="0">
+      <div id="banner">
+        <table border="0" cellspacing="0" cellpadding="8" width="100%">
+          <tr>
+            <td>
+              
+                
+                                
+                <a href="http://quilt.sourceforge.net/">
+                                  <img src="http://sourceforge.net/sflogo.php?group_id=32481&type=5" align="left" alt="David Dixon-Peugh" border="0" />
+                                </a>
+                
+                          </td>
+            <td>
+              <div align="right" id="login">
+                
+                  
+                  <a href="http://quilt.sourceforge.net/">
+                                      <img src="./images/quilt02.gif" align="right" alt="junit-quilt" border="0"/>
+                                    </a>
+                              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="breadcrumbs">
+        <table border="0" cellspacing="0" cellpadding="4" width="100%">
+          <tr>
+            <td> 
+                              <div align="right">
+                <a href="http://quilt.sourceforge.net/wiki/">Quilt Wiki</a>
+         |           <a href="http://www.sourceforge.net/projects/quilt">SF Project Page</a>
+         |           <a href="http://sourceforge.net/project/showfiles.php?group_id=32481">Download</a>
+         |           <a href="http://www.sourceforge.net/">Hosted by SourceForge</a>
+      </div>
+
+                          </td>
+          </tr>
+        </table>
+      </div>
+
+      <table border="0" cellspacing="0" cellpadding="8" width="100%" id="main">
+        <tr valign="top">
+          <td id="leftcol" width="20%">
+            <div id="navcolumn">
+
+                                <div>
+    <strong>Overview</strong>
+      <div>
+    <small>       <a href="./overview.html">Overview</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./goals.html">Goals</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./future.html">Future</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./readme.html">Readme</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./release.html">Release Notes</a>
+   </small>
+    
+  </div>
+
+  </div>
+
+                        
+                            <div><strong>Project Documentation</strong>
+                <div><small><a href="./index.html">Front Page</a></small></div>
+                <div>
+                  <small><a href="./project-info.html">Project Info</a></small>
+                                                                                                                                                                                                        </div>
+                <div>
+                  <small><a href="./maven-reports.html">Project Reports</a></small>
+                                                                                                                                                                                                                                                                                                        <div><small><a href="./changelog.html">Change Log</a></small></div>
+                      <div><small><a href="./activity-log.html">Developer Activity</a></small></div>
+                      <div><small><a href="./file-activity-report.html">File Activity</a></small></div>
+                                                                  <div><small><a href="./junit-report.html">Unit Tests</a></small></div>
+                                                                  <div><small><a href="./jdepend-report.html">Metric Results</a></small></div>
+                      <div><small><a href="./checkstyle-report.html">Checkstyle Report</a></small></div>
+                                                                                                                                                                                                                                                          </div>
+                                <div><small><a href="./apidocs/index.html">JavaDocs</a></small></div>
+                <div><small><a href="./xref/index.html">Source XReference</a></small></div>
+                                <div><small><a href="http://jakarta.apache.org/turbine/maven/development-process.html">Development Process</a></small></div>
+              </div>
+
+            </div>
+          </td>
+          <td>
+            <div id="bodycol">
+                            <div class="app">
+                  <div class="h3">
+    <h3><a name="Metric Results">Metric Results</a></h3>
+    <p>
+        [<a href="#Summary">summary</a>]
+        [<a href="#Packages">packages</a>]
+        [<a href="#Cycles">cycles</a>]
+        [<a href="#Explanations">explanations</a>]
+      </p>
+<p>
+        The following document contains the results of a <a href="http://www.clarkware.com/software/JDepend.html">JDepend</a>
+        metric analysis.  The various metrics are defined at the bottom
+        of this document.
+      </p>
+
+  </div>
+  <div class="h3">
+    <h3><a name="Summary">Summary</a></h3>
+    <p>
+        [<a href="#Summary">summary</a>]
+        [<a href="#Packages">packages</a>]
+        [<a href="#Cycles">cycles</a>]
+        [<a href="#Explanations">explanations</a>]
+      </p>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Package
+  </th>
+  <th 
+      >
+    <font size="-1">Total<br/>Classes</font>
+  </th>
+  <th 
+      >
+    <font size="-1">Abstract<br/>Classes</font>
+  </th>
+  <th 
+      >
+    <font size="-1">Concrete<br/>Classes</font>
+  </th>
+  <th 
+      >
+    <font size="-1">Afferent<br/>Couplings</font>
+  </th>
+  <th 
+      >
+    <font size="-1">Efferent<br/>Couplings</font>
+  </th>
+  <th 
+      >
+    <font size="-1">Abstractness</font>
+  </th>
+  <th 
+      >
+    <font size="-1">Instability</font>
+  </th>
+  <th 
+      >
+    <font size="-1">Distance</font>
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    
+            <a href="#junit.quilt">junit.quilt</a>
+          
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        50%
+
+  </td>
+  <td 
+      >
+        50%
+
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    
+            <a href="#junit.quilt.adapter">junit.quilt.adapter</a>
+          
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    
+            <a href="#junit.quilt.adapters">junit.quilt.adapters</a>
+          
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    
+            <a href="#junit.quilt.ant">junit.quilt.ant</a>
+          
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    5
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    
+            <a href="#junit.quilt.cover.ball94">junit.quilt.cover.ball94</a>
+          
+  </td>
+  <td 
+      >
+    4
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    4
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    11
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        85%
+
+  </td>
+  <td 
+      >
+        15%
+
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    
+            <a href="#junit.quilt.cover.generic">junit.quilt.cover.generic</a>
+          
+  </td>
+  <td 
+      >
+    22
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    19
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    7
+  </td>
+  <td 
+      >
+        14%
+
+  </td>
+  <td 
+      >
+        70%
+
+  </td>
+  <td 
+      >
+        16%
+
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    
+            <a href="#junit.quilt.cover.none">junit.quilt.cover.none</a>
+          
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    4
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    
+            <a href="#junit.quilt.cover.state">junit.quilt.cover.state</a>
+          
+  </td>
+  <td 
+      >
+    8
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    7
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    6
+  </td>
+  <td 
+      >
+        12%
+
+  </td>
+  <td 
+      >
+        86%
+
+  </td>
+  <td 
+      >
+        2%
+
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    
+            <a href="#junit.quilt.exception">junit.quilt.exception</a>
+          
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    
+            <a href="#junit.quilt.framework">junit.quilt.framework</a>
+          
+  </td>
+  <td 
+      >
+    10
+  </td>
+  <td 
+      >
+    6
+  </td>
+  <td 
+      >
+    4
+  </td>
+  <td 
+      >
+    10
+  </td>
+  <td 
+      >
+    4
+  </td>
+  <td 
+      >
+        60%
+
+  </td>
+  <td 
+      >
+        29%
+
+  </td>
+  <td 
+      >
+        11%
+
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    
+            <a href="#junit.quilt.reports">junit.quilt.reports</a>
+          
+  </td>
+  <td 
+      >
+    4
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+        25%
+
+  </td>
+  <td 
+      >
+        40%
+
+  </td>
+  <td 
+      >
+        35%
+
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    
+            <a href="#junit.quilt.runner">junit.quilt.runner</a>
+          
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+        50%
+
+  </td>
+  <td 
+      >
+        60%
+
+  </td>
+  <td 
+      >
+        10%
+
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    
+            <a href="#junit.quilt.textui">junit.quilt.textui</a>
+          
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    8
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    
+            <a href="#junit.quilt.ui">junit.quilt.ui</a>
+          
+  </td>
+  <td 
+      >
+    7
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    6
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    6
+  </td>
+  <td 
+      >
+        14%
+
+  </td>
+  <td 
+      >
+        75%
+
+  </td>
+  <td 
+      >
+        11%
+
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    
+            <a href="#junit.quilt.ui.jips">junit.quilt.ui.jips</a>
+          
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    
+            <a href="#junit.quilt.util">junit.quilt.util</a>
+          
+  </td>
+  <td 
+      >
+    7
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    5
+  </td>
+  <td 
+      >
+    7
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+        29%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        71%
+
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      colspan="1" 
+      >
+    cern.colt.matrix
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      colspan="1" 
+      >
+    cern.colt.matrix.impl
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      colspan="1" 
+      >
+    cern.colt.matrix.linalg
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      colspan="1" 
+      >
+    junit.extensions
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      colspan="1" 
+      >
+    junit.framework
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      colspan="1" 
+      >
+    junit.runner
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      colspan="1" 
+      >
+    junit.swingui
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      colspan="1" 
+      >
+    junit.textui
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      colspan="1" 
+      >
+    org.apache.bcel.classfile
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      colspan="1" 
+      >
+    org.apache.bcel.generic
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      colspan="1" 
+      >
+    org.apache.commons.cli
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      colspan="1" 
+      >
+    org.apache.commons.graph
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      colspan="1" 
+      >
+    org.apache.commons.graph.algorithm.search
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      colspan="1" 
+      >
+    org.apache.commons.graph.algorithm.spanning
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      colspan="1" 
+      >
+    org.apache.commons.graph.domain.basic
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      colspan="1" 
+      >
+    org.apache.tools.ant
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      colspan="1" 
+      >
+    org.apache.tools.ant.types
+  </td>
+  <td 
+      colspan="8" 
+      >
+    No stats available: package referenced, but not analyzed.
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h3">
+    <h3><a name="Packages">Packages</a></h3>
+    <p>
+        [<a href="#Summary">summary</a>]
+        [<a href="#Packages">packages</a>]
+        [<a href="#Cycles">cycles</a>]
+        [<a href="#Explanations">explanations</a>]
+      </p>
+  <div class="h4">
+    <h4><a name="junit.quilt">junit.quilt</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        50%
+
+  </td>
+  <td 
+      >
+        50%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/QuiltOptions.html">QuiltOptions</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.textui">junit.quilt.textui</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#org.apache.commons.cli">org.apache.commons.cli</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.adapter">junit.quilt.adapter</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/adapter/JUnitAdapter.html">JUnitAdapter</a><br/>
+    
+  </td>
+  <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#junit.quilt.ui">junit.quilt.ui</a><br/>
+            <a href="#junit.swingui">junit.swingui</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.adapters">junit.quilt.adapters</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    1
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/adapters/MainAdapter.html">MainAdapter</a><br/>
+    
+  </td>
+  <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.ant">junit.quilt.ant</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    5
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/ant/AntQuiltRunner.html">AntQuiltRunner</a><br/>
+    
+  </td>
+  <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="#junit.framework">junit.framework</a><br/>
+            <a href="#junit.quilt.reports">junit.quilt.reports</a><br/>
+            <a href="#junit.quilt.runner">junit.quilt.runner</a><br/>
+            <a href="#org.apache.tools.ant">org.apache.tools.ant</a><br/>
+            <a href="#org.apache.tools.ant.types">org.apache.tools.ant.types</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.cover.ball94">junit.quilt.cover.ball94</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    11
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        85%
+
+  </td>
+  <td 
+      >
+        15%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/cover/ball94/ArrayIncrement.html">ArrayIncrement</a><br/>
+            <a href="xref/junit/quilt/cover/ball94/B94ClassLoader.html">B94ClassLoader</a><br/>
+            <a href="xref/junit/quilt/cover/ball94/B94Collector.html">B94Collector</a><br/>
+            <a href="xref/junit/quilt/cover/ball94/B94Registry.html">B94Registry</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.ui">junit.quilt.ui</a><br/>
+            <a href="#junit.quilt.ui.jips">junit.quilt.ui.jips</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#cern.colt.matrix">cern.colt.matrix</a><br/>
+            <a href="#cern.colt.matrix.impl">cern.colt.matrix.impl</a><br/>
+            <a href="#cern.colt.matrix.linalg">cern.colt.matrix.linalg</a><br/>
+            <a href="#junit.quilt.cover.generic">junit.quilt.cover.generic</a><br/>
+            <a href="#junit.quilt.exception">junit.quilt.exception</a><br/>
+            <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#junit.quilt.util">junit.quilt.util</a><br/>
+            <a href="#org.apache.bcel.generic">org.apache.bcel.generic</a><br/>
+            <a href="#org.apache.commons.graph">org.apache.commons.graph</a><br/>
+            <a href="#org.apache.commons.graph.algorithm.spanning">org.apache.commons.graph.algorithm.spanning</a><br/>
+            <a href="#org.apache.commons.graph.domain.basic">org.apache.commons.graph.domain.basic</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.cover.generic">junit.quilt.cover.generic</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    7
+  </td>
+  <td 
+      >
+        14%
+
+  </td>
+  <td 
+      >
+        70%
+
+  </td>
+  <td 
+      >
+        16%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                    <a href="xref/junit/quilt/cover/generic/EdgeFactory.html">EdgeFactory</a><br/>
+            <a href="xref/junit/quilt/cover/generic/FlowControlEdge.html">FlowControlEdge</a><br/>
+            <a href="xref/junit/quilt/cover/generic/MethInstClassLoader.html">MethInstClassLoader</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/cover/generic/BlockVertex.html">BlockVertex</a><br/>
+            <a href="xref/junit/quilt/cover/generic/BranchEdge.html">BranchEdge</a><br/>
+            <a href="xref/junit/quilt/cover/generic/BranchSegment.html">BranchSegment</a><br/>
+            <a href="xref/junit/quilt/cover/generic/BytecodeLayout.html">BytecodeLayout</a><br/>
+            <a href="xref/junit/quilt/cover/generic/ControlFlowGraph.html">ControlFlowGraph</a><br/>
+            <a href="xref/junit/quilt/cover/generic/DummyEdge.html">DummyEdge</a><br/>
+            <a href="xref/junit/quilt/cover/generic/EdgeFactoryImpl.html">EdgeFactoryImpl</a><br/>
+            <a href="xref/junit/quilt/cover/generic/ExceptionEdge.html">ExceptionEdge</a><br/>
+            <a href="xref/junit/quilt/cover/generic/FinallyVertex.html">FinallyVertex</a><br/>
+            <a href="xref/junit/quilt/cover/generic/InitVertex.html">InitVertex</a><br/>
+            <a href="xref/junit/quilt/cover/generic/InstContext.html">InstContext</a><br/>
+            <a href="xref/junit/quilt/cover/generic/JSREdge.html">JSREdge</a><br/>
+            <a href="xref/junit/quilt/cover/generic/JSRInliner.html">JSRInliner</a><br/>
+            <a href="xref/junit/quilt/cover/generic/LabeledNOP.html">LabeledNOP</a><br/>
+            <a href="xref/junit/quilt/cover/generic/NormalEdge.html">NormalEdge</a><br/>
+            <a href="xref/junit/quilt/cover/generic/QuiltClassLoader.html">QuiltClassLoader</a><br/>
+            <a href="xref/junit/quilt/cover/generic/ReturnEdge.html">ReturnEdge</a><br/>
+            <a href="xref/junit/quilt/cover/generic/SelectEdge.html">SelectEdge</a><br/>
+            <a href="xref/junit/quilt/cover/generic/StatementSegment.html">StatementSegment</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.cover.ball94">junit.quilt.cover.ball94</a><br/>
+            <a href="#junit.quilt.cover.none">junit.quilt.cover.none</a><br/>
+            <a href="#junit.quilt.cover.state">junit.quilt.cover.state</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.exception">junit.quilt.exception</a><br/>
+            <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#org.apache.bcel.classfile">org.apache.bcel.classfile</a><br/>
+            <a href="#org.apache.bcel.generic">org.apache.bcel.generic</a><br/>
+            <a href="#org.apache.commons.graph">org.apache.commons.graph</a><br/>
+            <a href="#org.apache.commons.graph.algorithm.search">org.apache.commons.graph.algorithm.search</a><br/>
+            <a href="#org.apache.commons.graph.domain.basic">org.apache.commons.graph.domain.basic</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.cover.none">junit.quilt.cover.none</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    4
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/cover/none/NoneClassLoader.html">NoneClassLoader</a><br/>
+            <a href="xref/junit/quilt/cover/none/NoneCollector.html">NoneCollector</a><br/>
+            <a href="xref/junit/quilt/cover/none/NoneRegistry.html">NoneRegistry</a><br/>
+    
+  </td>
+  <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.cover.generic">junit.quilt.cover.generic</a><br/>
+            <a href="#junit.quilt.exception">junit.quilt.exception</a><br/>
+            <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#junit.quilt.util">junit.quilt.util</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.cover.state">junit.quilt.cover.state</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    1
+  </td>
+  <td 
+      >
+    6
+  </td>
+  <td 
+      >
+        12%
+
+  </td>
+  <td 
+      >
+        86%
+
+  </td>
+  <td 
+      >
+        2%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                    <a href="xref/junit/quilt/cover/state/StateMachineCollector.html">StateMachineCollector</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/cover/state/BasicBlock.html">BasicBlock</a><br/>
+            <a href="xref/junit/quilt/cover/state/CallVisitVertex.html">CallVisitVertex</a><br/>
+            <a href="xref/junit/quilt/cover/state/InitVertex.html">InitVertex</a><br/>
+            <a href="xref/junit/quilt/cover/state/InvalidTransitionException.html">InvalidTransitionException</a><br/>
+            <a href="xref/junit/quilt/cover/state/SMClassLoader.html">SMClassLoader</a><br/>
+            <a href="xref/junit/quilt/cover/state/SimpleStateMachine.html">SimpleStateMachine</a><br/>
+            <a href="xref/junit/quilt/cover/state/StateMachineRegistry.html">StateMachineRegistry</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.ui">junit.quilt.ui</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.cover.generic">junit.quilt.cover.generic</a><br/>
+            <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#junit.quilt.util">junit.quilt.util</a><br/>
+            <a href="#org.apache.bcel.generic">org.apache.bcel.generic</a><br/>
+            <a href="#org.apache.commons.graph">org.apache.commons.graph</a><br/>
+            <a href="#org.apache.commons.graph.domain.basic">org.apache.commons.graph.domain.basic</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.exception">junit.quilt.exception</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/exception/InvalidTransitionException.html">InvalidTransitionException</a><br/>
+            <a href="xref/junit/quilt/exception/QuiltException.html">QuiltException</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.cover.ball94">junit.quilt.cover.ball94</a><br/>
+            <a href="#junit.quilt.cover.generic">junit.quilt.cover.generic</a><br/>
+            <a href="#junit.quilt.cover.none">junit.quilt.cover.none</a><br/>
+    
+  </td>
+  <td 
+      >
+                <i>None</i>
+        
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.framework">junit.quilt.framework</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    10
+  </td>
+  <td 
+      >
+    4
+  </td>
+  <td 
+      >
+        60%
+
+  </td>
+  <td 
+      >
+        29%
+
+  </td>
+  <td 
+      >
+        11%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                    <a href="xref/junit/quilt/framework/CoverageSegment.html">CoverageSegment</a><br/>
+            <a href="xref/junit/quilt/framework/ProgramAdapter.html">ProgramAdapter</a><br/>
+            <a href="xref/junit/quilt/framework/QuiltCollector.html">QuiltCollector</a><br/>
+            <a href="xref/junit/quilt/framework/QuiltCollectorImpl.html">QuiltCollectorImpl</a><br/>
+            <a href="xref/junit/quilt/framework/QuiltRegistry.html">QuiltRegistry</a><br/>
+            <a href="xref/junit/quilt/framework/StatementSegment.html">StatementSegment</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/framework/CoverageSegmentImpl.html">CoverageSegmentImpl</a><br/>
+            <a href="xref/junit/quilt/framework/QuiltDecorator.html">QuiltDecorator</a><br/>
+            <a href="xref/junit/quilt/framework/StatementSegmentImpl.html">StatementSegmentImpl</a><br/>
+            <a href="xref/junit/quilt/framework/TestRegistry.html">TestRegistry</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.adapter">junit.quilt.adapter</a><br/>
+            <a href="#junit.quilt.adapters">junit.quilt.adapters</a><br/>
+            <a href="#junit.quilt.cover.ball94">junit.quilt.cover.ball94</a><br/>
+            <a href="#junit.quilt.cover.generic">junit.quilt.cover.generic</a><br/>
+            <a href="#junit.quilt.cover.none">junit.quilt.cover.none</a><br/>
+            <a href="#junit.quilt.cover.state">junit.quilt.cover.state</a><br/>
+            <a href="#junit.quilt.reports">junit.quilt.reports</a><br/>
+            <a href="#junit.quilt.runner">junit.quilt.runner</a><br/>
+            <a href="#junit.quilt.textui">junit.quilt.textui</a><br/>
+            <a href="#junit.quilt.ui">junit.quilt.ui</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.extensions">junit.extensions</a><br/>
+            <a href="#junit.framework">junit.framework</a><br/>
+            <a href="#junit.quilt.ui">junit.quilt.ui</a><br/>
+            <a href="#junit.quilt.util">junit.quilt.util</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.reports">junit.quilt.reports</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    3
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+        25%
+
+  </td>
+  <td 
+      >
+        40%
+
+  </td>
+  <td 
+      >
+        35%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                    <a href="xref/junit/quilt/reports/Report.html">Report</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/reports/TreeReport.html">TreeReport</a><br/>
+            <a href="xref/junit/quilt/reports/XMLReport.html">XMLReport</a><br/>
+            <a href="xref/junit/quilt/reports/XMLSummary.html">XMLSummary</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.ant">junit.quilt.ant</a><br/>
+            <a href="#junit.quilt.textui">junit.quilt.textui</a><br/>
+            <a href="#junit.quilt.ui">junit.quilt.ui</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#junit.quilt.util">junit.quilt.util</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.runner">junit.quilt.runner</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    3
+  </td>
+  <td 
+      >
+        50%
+
+  </td>
+  <td 
+      >
+        60%
+
+  </td>
+  <td 
+      >
+        10%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                    <a href="xref/junit/quilt/runner/QuiltRunner.html">QuiltRunner</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/runner/QuiltSuiteLoader.html">QuiltSuiteLoader</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.ant">junit.quilt.ant</a><br/>
+            <a href="#junit.quilt.textui">junit.quilt.textui</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.framework">junit.framework</a><br/>
+            <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#junit.runner">junit.runner</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.textui">junit.quilt.textui</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    8
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/textui/Quilt.html">Quilt</a><br/>
+    
+  </td>
+  <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="#junit.framework">junit.framework</a><br/>
+            <a href="#junit.quilt">junit.quilt</a><br/>
+            <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#junit.quilt.reports">junit.quilt.reports</a><br/>
+            <a href="#junit.quilt.runner">junit.quilt.runner</a><br/>
+            <a href="#junit.runner">junit.runner</a><br/>
+            <a href="#junit.textui">junit.textui</a><br/>
+            <a href="#org.apache.commons.cli">org.apache.commons.cli</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.ui">junit.quilt.ui</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    2
+  </td>
+  <td 
+      >
+    6
+  </td>
+  <td 
+      >
+        14%
+
+  </td>
+  <td 
+      >
+        75%
+
+  </td>
+  <td 
+      >
+        11%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                    <a href="xref/junit/quilt/ui/ResourceAction.html">ResourceAction</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/ui/ClassBrowser.html">ClassBrowser</a><br/>
+            <a href="xref/junit/quilt/ui/CoverAction.html">CoverAction</a><br/>
+            <a href="xref/junit/quilt/ui/Jips.html">Jips</a><br/>
+            <a href="xref/junit/quilt/ui/Quilt.html">Quilt</a><br/>
+            <a href="xref/junit/quilt/ui/ReportAction.html">ReportAction</a><br/>
+            <a href="xref/junit/quilt/ui/TestBrowser.html">TestBrowser</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.adapter">junit.quilt.adapter</a><br/>
+            <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.cover.ball94">junit.quilt.cover.ball94</a><br/>
+            <a href="#junit.quilt.cover.state">junit.quilt.cover.state</a><br/>
+            <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#junit.quilt.reports">junit.quilt.reports</a><br/>
+            <a href="#junit.quilt.util">junit.quilt.util</a><br/>
+            <a href="#junit.runner">junit.runner</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.ui.jips">junit.quilt.ui.jips</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    0
+  </td>
+  <td 
+      >
+    2
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        100%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/ui/jips/JipsPanel.html">JipsPanel</a><br/>
+    
+  </td>
+  <td 
+      >
+                <i>None</i>
+        
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.cover.ball94">junit.quilt.cover.ball94</a><br/>
+            <a href="#junit.quilt.util">junit.quilt.util</a><br/>
+    
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h4">
+    <h4><a name="junit.quilt.util">junit.quilt.util</a></h4>
+      <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Afferent Couplings
+  </th>
+  <th 
+      >
+    Efferent Couplings
+  </th>
+  <th 
+      >
+    Abstractness
+  </th>
+  <th 
+      >
+    Instability
+  </th>
+  <th 
+      >
+    Distance
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    7
+  </td>
+  <td 
+      >
+    0
+  </td>
+  <td 
+      >
+        29%
+
+  </td>
+  <td 
+      >
+        0%
+
+  </td>
+  <td 
+      >
+        71%
+
+  </td>
+
+  </tr>
+
+  </table>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Abstract Classes
+  </th>
+  <th 
+      >
+    Concrete Classes
+  </th>
+  <th 
+      >
+    Used by Packages
+  </th>
+  <th 
+      >
+    Uses Packages
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+                    <a href="xref/junit/quilt/util/RegistryBrowserAware.html">RegistryBrowserAware</a><br/>
+            <a href="xref/junit/quilt/util/RegistryListener.html">RegistryListener</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="xref/junit/quilt/util/About.html">About</a><br/>
+            <a href="xref/junit/quilt/util/Contributors.html">Contributors</a><br/>
+            <a href="xref/junit/quilt/util/DisplayPanel.html">DisplayPanel</a><br/>
+            <a href="xref/junit/quilt/util/Registry.html">Registry</a><br/>
+            <a href="xref/junit/quilt/util/RegistryBrowser.html">RegistryBrowser</a><br/>
+    
+  </td>
+  <td 
+      >
+                    <a href="#junit.quilt.cover.ball94">junit.quilt.cover.ball94</a><br/>
+            <a href="#junit.quilt.cover.none">junit.quilt.cover.none</a><br/>
+            <a href="#junit.quilt.cover.state">junit.quilt.cover.state</a><br/>
+            <a href="#junit.quilt.framework">junit.quilt.framework</a><br/>
+            <a href="#junit.quilt.reports">junit.quilt.reports</a><br/>
+            <a href="#junit.quilt.ui">junit.quilt.ui</a><br/>
+            <a href="#junit.quilt.ui.jips">junit.quilt.ui.jips</a><br/>
+    
+  </td>
+  <td 
+      >
+                <i>None</i>
+        
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+
+  </div>
+  <div class="h3">
+    <h3><a name="Cycles">Cycles</a></h3>
+    <p>
+        [<a href="#Summary">summary</a>]
+        [<a href="#Packages">packages</a>]
+        [<a href="#Cycles">cycles</a>]
+        [<a href="#Explanations">explanations</a>]
+      </p>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Package
+  </th>
+  <th 
+      >
+    Cyclic Dependencies
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    junit.quilt.adapter
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    junit.quilt.adapters
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    junit.quilt.ant
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.runner<br/>
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    junit.quilt.cover.ball94
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.cover.generic<br/>
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    junit.quilt.cover.generic
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    junit.quilt.cover.none
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.cover.generic<br/>
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    junit.quilt.cover.state
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.cover.generic<br/>
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    junit.quilt.framework
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    junit.quilt.reports
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    junit.quilt.runner
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    junit.quilt.textui
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    junit.quilt.ui
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                        
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    junit.quilt.ui.jips
+  </td>
+  <td 
+      >
+    
+                          junit.quilt.cover.ball94<br/>
+                          junit.quilt.cover.generic<br/>
+                          junit.quilt.framework<br/>
+                          junit.quilt.ui<br/>
+                          junit.quilt.framework<br/>
+                        
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+  <div class="h3">
+    <h3><a name="Explanations">Explanations</a></h3>
+    <p>
+        [<a href="#Summary">summary</a>]
+        [<a href="#Packages">packages</a>]
+        [<a href="#Cycles">cycles</a>]
+        [<a href="#Explanations">explanations</a>]
+      </p>
+<p>
+        The following explanations are for quick reference and are
+        lifted directly from the original <a href="http://www.clarkware.com/software/JDepend.html">JDepend
+        documentation</a>.
+      </p>
+  <table cellpadding="3" cellspacing="2" border="1" width="100%">
+            <tr class="b">
+        <th 
+      >
+    Term
+  </th>
+  <th 
+      >
+    Description
+  </th>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    Number of Classes
+  </td>
+  <td 
+      >
+    
+            The number of concrete and abstract classes (and interfaces)
+            in the package is an indicator of the extensibility of the
+            package.
+          
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    Afferent Couplings
+  </td>
+  <td 
+      >
+    
+            The number of other packages that depend upon classes within
+            the package is an indicator of the package's responsibility.
+          
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    Efferent Couplings
+  </td>
+  <td 
+      >
+    
+            The number of other packages that the classes in the package
+            depend upon is an indicator of the package's independence.
+          
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    Abstractness
+  </td>
+  <td 
+      >
+    
+            The ratio of the number of abstract classes (and interfaces)
+            in the analyzed package to the total number of classes in
+            the analyzed package.  The range for this metric is 0 to 1,
+            with A=0 indicating a completely concrete package and A=1
+            indicating a completely abstract package.
+          
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    Instability
+  </td>
+  <td 
+      >
+    
+            The ratio of efferent coupling (Ce) to total coupling (Ce /
+            (Ce + Ca)). This metric is an indicator of the package's
+            resilience to change.  The range for this metric is 0 to 1,
+            with I=0 indicating a completely stable package and I=1
+            indicating a completely instable package.
+          
+  </td>
+
+  </tr>
+        <tr class="b">
+        <td 
+      >
+    Distance
+  </td>
+  <td 
+      >
+    
+            The perpendicular distance of a package from the idealized
+            line A + I = 1. This metric is an indicator of the package's
+            balance between abstractness and stability.  A package
+            squarely on the main sequence is optimally balanced with
+            respect to its abstractness and stability. Ideal packages
+            are either completely abstract and stable (x=0, y=1) or
+            completely concrete and instable (x=1, y=0).  The range for
+            this metric is 0 to 1, with D=0 indicating a package that is
+            coincident with the main sequence and D=1 indicating a
+            package that is as far from the main sequence as possible. 
+          
+  </td>
+
+  </tr>
+        <tr class="a"> 
+        <td 
+      >
+    Cycles
+  </td>
+  <td 
+      >
+    
+            Packages participating in a package dependency cycle are in
+            a deadly embrace with respect to reusability and their
+            release cycle. Package dependency cycles can be easily
+            identified by reviewing the textual reports of dependency
+            cycles. Once these dependency cycles have been identified
+            with JDepend, they can be broken by employing various
+            object-oriented techniques.
+          
+  </td>
+
+  </tr>
+
+  </table>
+
+  </div>
+
+                
+                
+                
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div id="footer">
+        <table border="0" cellspacing="0" cellpadding="4">
+          <tr>
+            <td>
+                                                                  &copy; 2001-2002, David Dixon-Peugh
+                                                              </td>
+          </tr>
+        </table>
+      </div>
+
+    </body>
+  </html>

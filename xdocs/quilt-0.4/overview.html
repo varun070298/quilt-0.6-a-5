@@ -1,0 +1,247 @@
+  <!DOCTYPE html PUBLIC "-//CollabNet//DTD XHTML 1.0 Transitional//EN"
+      "http://www.collabnet.com/dtds/collabnet_transitional_10.dtd">
+
+  
+    
+    
+      
+  
+
+  <html>
+    <head>
+      <title>JUnit Quilt - Quilt Overview</title>
+
+      <style type="text/css">
+        @import url("./style/tigris.css");
+        @import url("./style/maven.css");
+      </style>
+      <script type="text/javascript">
+        if (document.layers) {
+          document.writeln('<link rel="stylesheet" type="text/css" href="./style/ns4_only.css" media="screen" /><link rel="stylesheet" type="text/css" href="./style/maven_ns4_only.css" media="screen" />')
+        }
+      </script>
+      <link rel="stylesheet" type="text/css" href="./style/print.css" media="print" />
+
+              <meta name="author" value="David Dixon-Peugh"/>
+        <meta name="email" value="ddp@apache.org" />
+      
+    </head>
+
+    <body class="composite" marginwidth="0" marginheight="0">
+      <div id="banner">
+        <table border="0" cellspacing="0" cellpadding="8" width="100%">
+          <tr>
+            <td>
+              
+                
+                                
+                <a href="http://quilt.sourceforge.net/">
+                                  <img src="http://sourceforge.net/sflogo.php?group_id=32481&type=5" align="left" alt="David Dixon-Peugh" border="0" />
+                                </a>
+                
+                          </td>
+            <td>
+              <div align="right" id="login">
+                
+                  
+                  <a href="http://quilt.sourceforge.net/">
+                                      <img src="./images/quilt02.gif" align="right" alt="junit-quilt" border="0"/>
+                                    </a>
+                              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="breadcrumbs">
+        <table border="0" cellspacing="0" cellpadding="4" width="100%">
+          <tr>
+            <td> 
+                              <div align="right">
+                <a href="http://quilt.sourceforge.net/wiki/">Quilt Wiki</a>
+         |           <a href="http://www.sourceforge.net/projects/quilt">SF Project Page</a>
+         |           <a href="http://sourceforge.net/project/showfiles.php?group_id=32481">Download</a>
+         |           <a href="http://www.sourceforge.net/">Hosted by SourceForge</a>
+      </div>
+
+                          </td>
+          </tr>
+        </table>
+      </div>
+
+      <table border="0" cellspacing="0" cellpadding="8" width="100%" id="main">
+        <tr valign="top">
+          <td id="leftcol" width="20%">
+            <div id="navcolumn">
+
+                                <div>
+    <strong>Overview</strong>
+      <div>
+    <small>       <a href="./overview.html">Overview</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./goals.html">Goals</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./future.html">Future</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./readme.html">Readme</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./release.html">Release Notes</a>
+   </small>
+    
+  </div>
+
+  </div>
+
+                        
+                            <div><strong>Project Documentation</strong>
+                <div><small><a href="./index.html">Front Page</a></small></div>
+                <div>
+                  <small><a href="./project-info.html">Project Info</a></small>
+                                                                                                                                                                                                        </div>
+                <div>
+                  <small><a href="./maven-reports.html">Project Reports</a></small>
+                                                                                                                                                                                                                                                                                                                                                                                                          </div>
+                                <div><small><a href="./apidocs/index.html">JavaDocs</a></small></div>
+                <div><small><a href="./xref/index.html">Source XReference</a></small></div>
+                                <div><small><a href="http://jakarta.apache.org/turbine/maven/development-process.html">Development Process</a></small></div>
+              </div>
+
+            </div>
+          </td>
+          <td>
+            <div id="bodycol">
+                            <div class="app">
+                  <div class="h3">
+    <h3><a name="Overview">Overview</a></h3>
+      <div class="h4">
+    <h4><a name="What is a Coverage Tool?">What is a Coverage Tool?</a></h4>
+    <p>
+A coverage tool is a tool used when testing to determine
+exactly how much of the application you have tested.  A
+good tool will also give you specific examples of what hasn't
+been tested.  Coverage of a program is reported on the basis
+of metrics.
+</p>
+<p>
+You can think of coverage in terms of a graph with vertices and
+edges.  The vertices represent statements that can be executed,
+and the edges represent flow control within the program.  There
+are three classes of coverage that can be divined from this 
+model:
+<ul>
+<li>Statement Coverage - The percentage of vertices in the graph
+which have been traversed by a test.
+</li>
+
+<li>Branch Coverage - The percentage of edges in the graph which
+have been traversed by a test.
+</li>
+
+<li>Path Coverage - The percentage of all execution paths taken
+by a test.
+</li>
+</ul>
+</p>
+<p>
+There are other types of coverage which can be measured.  These are
+primarily focused around where these metrics cannot easily reach.  
+The two which come to mind first are:
+<ul>
+  <li>Relational Coverage - Are all variations of &lt;, = and &gt; covered?</li>
+  <li>Loop Coverage - Have you skipped a loop, executed a loop exactly
+once and executed a loop more than once?</li>
+</ul>
+</p>
+<p>
+Coverage tools provide assurance that Unit tests and Integration tests are
+indeed exercising the class adequately.  This information is vital to 
+determine if enough testing is being done.
+</p>
+<p>
+Coverage also provides valuable insight into the risk of software failure.
+The more a piece of code is executed under test, the less likely that
+a software failure will show up at the last minute, or even be found
+by a customer.
+</p>
+
+  </div>
+  <div class="h4">
+    <h4><a name="What is Quilt?">What is Quilt?</a></h4>
+    <p>
+Quilt is a coverage analysis tool which operates on Java bytecode.  It
+intercepts the bytecode before it is loaded into the JVM and instruments
+the class.  The instruments in the class are then queried after the tests
+are run, and coverage is calculated.  In the future, Quilt should also
+be able to provide insight into what tests can be added to improve
+coverage.
+</p>
+<p>
+There are three ways of building a coverage tool, each with their own ups
+and downs.  The three ways you can do it are:
+<ul>
+<li>Source Code Instrumentation - Change the source code before the
+software is compiled.</li>
+<li>Byte Code Instrumentation - Change the binary before it is run.</li>
+<li>Profiler Monitoring - Monitor a profiler, and report based on its
+results.</li>
+</ul>
+
+I pick byte code instrumentation for Quilt because of the ease in which
+it can be used.  To use Quilt, you just load up the classes to be tested
+under a QuiltClassLoader, and they are instantly capable of being watched
+by Quilt.  Thus if your code can be tested, it can be checked for coverage.
+If I used Source Instrumentation, a seperate compile phase would be necessary
+for the coverage.
+</p>
+
+  </div>
+  <div class="h4">
+    <h4><a name="Why Free?">Why Free?</a></h4>
+    <p>
+There are a couple of reasons why Quilt is Open Source.  First, its because
+Coverage tool providers charge an arm and a leg for their tools.  I wanted
+to experiment with Code Coverage, and at the time I couldn't buy a tool for
+less that $500.
+</p>
+<p>
+And of course, the idea of intercepting bytecode before it hits the JVM,
+and adding code to it is kind of fun.  Why wouldn't anyone want to do it?
+</p>
+
+  </div>
+
+  </div>
+
+                
+                
+                
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div id="footer">
+        <table border="0" cellspacing="0" cellpadding="4">
+          <tr>
+            <td>
+                                                                  &copy; 2001-2002, David Dixon-Peugh
+                                                              </td>
+          </tr>
+        </table>
+      </div>
+
+    </body>
+  </html>

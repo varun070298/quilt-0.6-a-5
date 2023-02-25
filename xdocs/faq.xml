@@ -1,0 +1,72 @@
+<document>
+  <properties>
+    <title>Quilt FAQ</title>
+      <author email="jddixon@users.sourceforge.net">Jim Dixon</author>
+  </properties>
+  <body>
+    <section name="FAQ">
+      <ol>
+        <li><a href="#wheresQuilt">
+            Where does Quilt fit in the testing cycle?</a></li>
+        <li><a href="#concurrency">
+            Do Quilt/JUnit tests run concurrently?</a></li>
+        <li><a href="#assert">
+            What is the connection between JUnit's assertions and 
+            Java asserts?</a></li>
+      </ol>
+      <a name="wheresQuilt"/>
+      <subsection name="Where does Quilt fit in the testing cycle?">
+        <p>After your unit tests.  Coverage tests are run 
+        when you are satisfied that your software under development
+        passes all its tests.  You then run Quilt, which lets you know 
+        how thorough that testing has been.</p>
+
+      <p>Quilt can also be quite useful in integration tests, where 
+        it can track exactly how modules call one another in actual 
+        use.</p>
+      </subsection>
+
+      <a name="concurrency"/>
+      <subsection name="Do Quilt/JUnit tests run concurrently?">
+        <p>No, at least not because of JUnit or Quilt.  Each test is
+          started by JUnit.  It runs and the results are collected, 
+          then the next test is started.  Quilt loads classes and
+          provides a report at the end.  All of this is fully serialized.
+        </p>
+        
+        <p>If the tests themselves are multi-threaded, standard
+          JUnit has no way of knowing this, so the results are unpredictable.
+          If the unit that JUnit started returns, JUnit will not wait for
+          any threads to complete.  It just starts the next test.</p>
+
+        <p>On the other hand, if you need to run multithreaded tests, 
+          you can find help in the standard JUnit distribution: 
+          <code>junit.extensions.ActiveTestSuite.</code>  This class,
+          an extension to <code>TestSuite</code>, runs each test in 
+          a separate thread and waits until all have terminated.
+          However, even in this case each test must either be single-threaded 
+        or handle its own concurrency correctly.</p>
+        
+      </subsection>
+
+      <a name="assert"/>
+      <subsection name="What is the connection between JUnit's assertions and Java asserts?">
+        <p>There isn't any.  Earlier versions of JUnit had an
+          <code>assert</code> method.  When Sun introduced  
+          <code>assert</code> as a keyword in the Java lanaguage,
+          JUnit had to rename its method to <code>assertTrue</code>.
+          <code>assert</code> is part of the language; <code>assertTrue</code>
+          is a method that throws a JUnit-defined exception.</p>
+      </subsection>
+
+
+      <!-- keep at the bottom -->
+      <hr/>
+        <em>This material is copyright 2003 by James David Dixon 
+        ("Jim Dixon") and is made available under the 
+        <a href="community/artistic-license.html">Artistic License</a>.</em>
+      
+    </section>
+  </body>
+</document>
+      

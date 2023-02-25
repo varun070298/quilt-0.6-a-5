@@ -1,0 +1,116 @@
+<document>
+  <properties>
+    <title>Getting Started</title>
+      <author email="jddixon@users.sourceforge.net">Jim Dixon</author>
+  </properties>
+  <body>
+    <section name="Getting Started">
+      <p>There are basically two ways to get Quilt - and most other open
+      source software.  The first is CVS, which gives you access to 
+      last night's version of the code.  The second is to download the 
+      latest release.  This is more likely to work, but is less up to date;
+      current plans are to put out incremental Quilt 0.6a releases at 
+      roughly 2 week intervals.</p>
+      
+      <p>Quilt is being developed on systems running Linux and FreeBSD.
+        If you are working under a Microsoft operating system, you may
+        need to use some initiative to get the advice that follows to
+        work.  We will try to improve on this situation; please be 
+        patient.</p>
+      
+      <subsection name="CVS Access">
+        <p>Quilt is hosted on 
+          <a href="http://www.sourceforge.net">SourceForge.</a>
+          On Unix systems, 
+          you can get a copy of the most recent version of Quilt by
+          typing:
+        </p>
+<source><![CDATA[
+cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/quilt checkout quilt-dev 
+]]></source>
+        <p>This will deliver the very latest version to your desktop,
+          creating a <b>quilt-dev</b> subdirectory in the current 
+          directory.</p>
+
+        <p>If you are using another operating system, or have trouble
+          with the instructions above, try 
+          <a href="http://sourceforge.net/docman/display_doc.php?docid=14033&amp;group_id=1">Sourceforge's CVS documentation</a>;
+          this is lucid and reasonably easy to follow.</p>
+      </subsection>
+
+      <subsection name="Downloads">
+        <p>The alternative is downloading a tarball.  This is very
+          simple indeed.  You should see a <b>Download</b> button at
+          the top of this Web page; if you click on it, it will take
+          you to Quilt's Sourceforge download page.  The most recent
+          tarballs will be listed towards the top.  If you just want
+          to use Quilt, get the binary distribution, which will have
+          a name like <code>quilt-0.6-a1-bin.tar.gz</code>.  If you 
+          want the source code, so that you can see how it works,
+          you will need the source distribution, which has a name like
+          <code>quilt-0.6-a1-src.tar.gz</code>.</p>
+          
+            <p>Javadocs are included with the binary distribution and
+              built by the source distribution.</p>
+
+          <p>Click on whichever 
+          you prefer, and your browser will get it for you.</p>
+
+        <p>Once you have the tarball, put it in the directory where
+          you want your Quilt subdirectory and type </p>
+<source><![CDATA[
+  tar -vzxf quilt*gz
+]]></source>
+        <p>and it will be extracted for you.  <em>(These instructions 
+            are of course suitable for Linux/Unix hosts; if you are 
+            using Windows, you need to adjust appropriately.)</em></p>
+      </subsection>
+      <subsection name="Where's the Jar?">
+        <p>Either of the procedures above will give you a distribution
+          in a subdirectory with a name like <code>quilt-0.6-a1</code>.
+          If you have the binary distribution, in that directory you 
+          will find a Quilt jar; in this case it would be 
+          <code>quilt-0.6-a1.jar</code>.  If you have the source 
+          distribution, you can build the jar by typing</p>
+<source><![CDATA[
+  ant jar
+]]></source>
+        <p>This will create a Quilt jar in the <code>target</code> 
+          subdirectory.</p>
+
+      </subsection>
+      <subsection name="Confidence Building">
+        <p>You can now actually use Quilt by copying the Quilt jar
+          into the <b>example</b> directory and then moving into one
+          of the directories below hat.  For example, the following
+          commands will copy the jar, take you into the 
+          <code>example/3x6</code> directory, and build and run the 
+          tests:</p>
+<source><![CDATA[
+  cp quilt*jar example
+  cd example/3x6
+  ant test
+]]></source>
+      </subsection>
+      <subsection name="For Developers">
+        <p>Those with an interest in Quilt's inner workings are advised 
+        to get the software using CVS.  There are currently several 
+        file changes a day.</p>
+
+      <p>Once you have the software, you should go into the base
+        Quilt directory and run the tests.</p>  
+      
+<source><![CDATA[
+  cd quilt
+  ant test
+]]></source>
+      <p>These should execute with no or very few errors.  If you
+        do see serious errors, it is likely that there are problems
+        with the installation.</p>
+
+      <p>The most likely problems are classpath errors and missing
+        jar files.</p>
+      </subsection>
+    </section>
+  </body>
+</document>

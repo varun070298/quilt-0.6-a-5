@@ -1,0 +1,30 @@
+<document>
+  <properties>
+    <title>Licenses</title>
+      <author email="jddixon@users.sourceforge.net">Jim Dixon</author>
+  </properties>
+  <body>
+    <section name="Licenses">
+      <p>Except where it explicitly says otherwise, the material
+        found on the Quilt Web site is made available under the
+        <b>Apache License,</b> which you may review by clicking
+        <a href="apache-license.html">here</a>.</p>
+
+      <p>Certain material is marked as being available under the
+        <b>Artistic License</b>, a copy of which is
+        <a href="artistic-license.html">here.</a>  In all such cases
+        the copyright holder is named and reference is made to the
+        Artistic License.</p>
+
+      <p>Both of these are Open Source licenses.  See
+        <a href="http://www.opensource.org/licenses/">Open Source</a>
+        for more information on various types of open source
+        licenses.</p>
+
+      <p>The Quilt distribution includes jar files for other open
+        source software.  These are covered by their own licenses,
+        which should be consulted.</p>
+    </section>
+  </body>
+</document>
+

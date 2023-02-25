@@ -1,0 +1,204 @@
+  <!DOCTYPE html PUBLIC "-//CollabNet//DTD XHTML 1.0 Transitional//EN"
+      "http://www.collabnet.com/dtds/collabnet_transitional_10.dtd">
+
+  
+    
+    
+      
+  
+
+  <html>
+    <head>
+      <title>JUnit Quilt - Quilt Goals</title>
+
+      <style type="text/css">
+        @import url("./style/tigris.css");
+        @import url("./style/maven.css");
+      </style>
+      <script type="text/javascript">
+        if (document.layers) {
+          document.writeln('<link rel="stylesheet" type="text/css" href="./style/ns4_only.css" media="screen" /><link rel="stylesheet" type="text/css" href="./style/maven_ns4_only.css" media="screen" />')
+        }
+      </script>
+      <link rel="stylesheet" type="text/css" href="./style/print.css" media="print" />
+
+              <meta name="author" value="David Dixon-Peugh"/>
+        <meta name="email" value="ddp@apache.org" />
+      
+    </head>
+
+    <body class="composite" marginwidth="0" marginheight="0">
+      <div id="banner">
+        <table border="0" cellspacing="0" cellpadding="8" width="100%">
+          <tr>
+            <td>
+              
+                
+                                
+                <a href="http://quilt.sourceforge.net/">
+                                  <img src="http://sourceforge.net/sflogo.php?group_id=32481&type=5" align="left" alt="David Dixon-Peugh" border="0" />
+                                </a>
+                
+                          </td>
+            <td>
+              <div align="right" id="login">
+                
+                  
+                  <a href="http://quilt.sourceforge.net/">
+                                      <img src="./images/quilt02.gif" align="right" alt="junit-quilt" border="0"/>
+                                    </a>
+                              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="breadcrumbs">
+        <table border="0" cellspacing="0" cellpadding="4" width="100%">
+          <tr>
+            <td> 
+                              <div align="right">
+                <a href="http://quilt.sourceforge.net/wiki/">Quilt Wiki</a>
+         |           <a href="http://www.sourceforge.net/projects/quilt">SF Project Page</a>
+         |           <a href="http://sourceforge.net/project/showfiles.php?group_id=32481">Download</a>
+         |           <a href="http://www.sourceforge.net/">Hosted by SourceForge</a>
+      </div>
+
+                          </td>
+          </tr>
+        </table>
+      </div>
+
+      <table border="0" cellspacing="0" cellpadding="8" width="100%" id="main">
+        <tr valign="top">
+          <td id="leftcol" width="20%">
+            <div id="navcolumn">
+
+                                <div>
+    <strong>Overview</strong>
+      <div>
+    <small>       <a href="./overview.html">Overview</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./goals.html">Goals</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./future.html">Future</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./readme.html">Readme</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./release.html">Release Notes</a>
+   </small>
+    
+  </div>
+
+  </div>
+
+                        
+                            <div><strong>Project Documentation</strong>
+                <div><small><a href="./index.html">Front Page</a></small></div>
+                <div>
+                  <small><a href="./project-info.html">Project Info</a></small>
+                                                                                                                                                                                                        </div>
+                <div>
+                  <small><a href="./maven-reports.html">Project Reports</a></small>
+                                                                                                                                                                                                                                                                                                                                                                                                          </div>
+                                <div><small><a href="./apidocs/index.html">JavaDocs</a></small></div>
+                <div><small><a href="./xref/index.html">Source XReference</a></small></div>
+                                <div><small><a href="http://jakarta.apache.org/turbine/maven/development-process.html">Development Process</a></small></div>
+              </div>
+
+            </div>
+          </td>
+          <td>
+            <div id="bodycol">
+                            <div class="app">
+                  <div class="h3">
+    <h3><a name="Quilt's Goals">Quilt's Goals</a></h3>
+    <p>
+Quilt is designed to bring easy to use, robust and comprehensive
+code coverage to the average Java developer.  
+</p>
+  <div class="h4">
+    <h4><a name="Ease of Use">Ease of Use</a></h4>
+    <p>
+Quilt tries to leverage existing popular projects in its attempt
+to be easy to use.  If you know how to use JUnit, you should be
+able to use Quilt.
+</p>
+<p>
+Currently, Quilt is integrated into two development tools:
+<ul>
+  <li>Jakarta Ant</li>
+  <li>Jakarta Maven (coming real soon)</li>
+</ul>
+These tools make it easy to integrate Quilt into the 
+projects build process.  Hopefully, the Maven tool will
+also provide pretty reports, but they aren't there yet.
+</p>
+
+  </div>
+  <div class="h4">
+    <h4><a name="Robust">Robust</a></h4>
+    <p>
+JUnit Quilt works on the Bytecode of a class, and not
+from the Java Source.  Because of this, there is no
+seperate compile phase to add to the CM headaches that
+coverage tools sometimes bring to a project.
+</p>
+<p>
+Additionally, since Quilt is self contained, it requires
+very little setup in order to get it running.
+</p>
+
+  </div>
+  <div class="h4">
+    <h4><a name="Comprehensive">Comprehensive</a></h4>
+    <p>
+Currently Quilt has two methods of instrumenting
+the code for getting at Statement and Branch
+coverage.  However, it is written in a way to add
+new coverage techniques quickly and easily.
+</p>
+<p>
+In the future, Quilt will try to provide Acyclic
+Path Coverage, Relational and Loop coverage.  Being
+easy to add to, Quilt can keep on top of what people
+want in their coverage tool.
+</p>
+
+  </div>
+
+  </div>
+
+                
+                
+                
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div id="footer">
+        <table border="0" cellspacing="0" cellpadding="4">
+          <tr>
+            <td>
+                                                                  &copy; 2001-2002, David Dixon-Peugh
+                                                              </td>
+          </tr>
+        </table>
+      </div>
+
+    </body>
+  </html>

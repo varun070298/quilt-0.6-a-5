@@ -1,0 +1,478 @@
+<document>
+  <properties>
+    <title>Ant Tutorial</title>
+      <author email="jddixon@users.sourceforge.net">Jim Dixon</author>
+  </properties>
+  <body>
+    <section name="Ant Tutorial">
+      <subsection name="Limitations"><p>This is by no means a thorough 
+        introduction to Ant.  Ant is wonderously complex and 
+        constantly changing as volunteer workers modify its code and 
+        add external tasks which work in cooperation with Ant, tasks
+        such as Quilt.  The discussion here is limited to Ant's
+        use in testing with Quilt and JUnit.</p>  
+      
+      <p>In Ant terminology, this is a tutorial on the Quilt task.</p>
+
+    </subsection>
+    <subsection name="Ant">
+      <p><a href="http://ant.apache.org">Ant</a> 
+        is a tool for automating the Java build process, probably
+        the most widely used in the world.  Ant runs anywhere that
+        Java runs, so Ant has the same "write once, run anywhere"
+        quality. 
+      </p><p>Ant is used by writing XML scripts describing the job to be
+      done.  Each script sets out a number of <b>targets</b>, <b>tasks</b>,
+        <b>properties</b>, and <b>dependencies</b> and specifies the
+        relationship among them.  When the script is run, Ant will 
+        examine the dependencies between the targets, consider the
+        value of the properties, and from this decide which tasks need
+        to be run and in what order.
+      </p>
+      <p>By default Ant uses <code>build.xml</code> as its build 
+        file; by default it looks for this in the current directory.
+      </p>
+    </subsection>
+    <subsection name="Targets">
+      <p>A target is described by an XML &lt;target&gt; element, which
+        has a name, some attributes, and a number of contained
+        elements. </p>
+<source><![CDATA[
+<target name="compile" depends="init">
+  <mkdir dir="${classes.dir}"/>
+  <javac destdir="${classes.dir}">
+    <src>
+      <pathelement location="src/java"/>
+    </src>
+    <classpath>
+      <fileset dir="${lib.dir}">
+        <include name="*.jar"/>
+      </fileset>
+    </classpath>
+  </javac>
+</target>
+]]></source>
+        <p>In this example, the target, <code>compile,</code> depends upon
+          <code>init,</code> which must have been completed before 
+          it will be run.</p>
+        
+        <p> There are other optional <code>target</code> attributes;
+          for example, a <code>description</code> is commonly supplied.
+          This will be output by Ant at run time, allowing you to see
+          targets as they are executed.</p>
+        
+        <p> When <code>compile</code> is eligible, it will first make the
+          <code>${classes.dir}</code> directory if it does not exist.  This is 
+          specified by the <code>mkdir</code> task.</p>
+      </subsection>
+      <subsection name="Tasks">
+        <p>In the example above the main task is the Java compiler task,
+          <code>javac.</code>  
+          It writes its output to <code>destdir,</code>
+          which is given as an attribute. 
+          </p><p>The compiler reads source files from the directory
+          specified in the <code>src</code> element, in this case
+          <code>src/java.</code>  Its classpath is specified by the
+          <code>classpath</code> element, which includes a <b>fileset.</b>
+          This supplies a pattern for valid names (<code>*.jar</code>)
+          to be included in the classpath, and a directory to look for
+          such files in as an attribute, <code>dir.</code>
+        </p>
+      </subsection>
+      <subsection name="Dependencies">
+        <p>The order in which targets become eligible to be run is
+        determined by the <code>depends</code> attribute.  There can be
+        an arbitrary number of dependencies set out as a comma-separated
+        list.</p>
+<source><![CDATA[
+  <target name="jar" description="o Create the jar" depends="compile,test"> 
+]]></source>
+      </subsection>
+      <subsection name="Properties">
+        <p>Properties are name-value pairs and are normally placed 
+          at the top of the build file.  
+        </p>
+<source><![CDATA[
+  <property name="lib.dir" value="target/lib"/> 
+  <property name="final.name" value="quilt-dev"/>
+]]></source>
+        <p>Properties can then be used elsewhere in the build file 
+          by enclosing the names in braces and preceding this with
+          a dollar sign.  Ant will then substitute the appropriate
+          value when it encounters the expression during the run.
+          So in this case, the string "${lib.dir}" will be replaced
+          by "target/lib", which will be interpreted as a path 
+          relative to the base directory for the build, ${basedir};
+          and "${final.name}" would be replaced by "quilt-dev".
+        </p>
+      </subsection>
+      <subsection name="The Ant build.xml File">
+        <p>The build file is an XML file containing a &lt;project&gt;
+          element and its attributes and subelements.</p>
+
+        <source><![CDATA[
+<project default="jar" name="quilt" basedir=".">
+  <property name="noget" value="true"/>
+  <property name="default.target.dir" value="target"/>
+  <property name="lib.dir" value = target/lib"/>
+]]></source>
+        <p>In a UNIX environment, Ant can be run by simply typing its name.
+        </p>
+          <source><![CDATA[
+% ant
+]]></source>
+        <p>In this case, Ant will look for a file <code>build.xml</code>
+          in the current directory and execute it.  By default, its
+          target will be <code>jar</code></p>
+        <p>Alternatively the task can be specified on the command line:
+        </p>
+        <source><![CDATA[
+% ant compile          
+]]></source>
+        <p>In this case, Ant will read <code>build.xml</code> in the
+          current directory and carry out all targets that 
+          <code>compile</code> depends upon and then <code>compile</code>
+          itself.
+        </p>
+        <p>It is also possible to give Ant a path to the build file and
+          the build file a name other than <code>build.xml:</code></p>
+        <source><![CDATA[
+% ant -f path/anotherbuild.xml test        
+]]></source>
+        <p>Here Ant will use <code>path/anotherbuild.xml</code> as its
+          its build file, completing all targets that <code>test</code>
+          depends upon and <code>test</code> itself.</p>
+      </subsection>
+      <subsection name="QuiltTask Task Definition">
+        <p>In order to use Quilt from Ant, you need to do two things.</p>
+        <ul>
+          <li>you must add a &lt;taskdef&gt;, which tells Ant where
+            the Quilt task is to be found</li>
+          <li>you must tell Ant what you want Quilt to do</li>
+        </ul>
+        <p>The first is the subject of this section.  The second is the
+          subject of the next.</p>
+        <p>To define the task, add an element like this to your build.xml
+          file:</p>
+        <source><![CDATA[
+<taskdef name="quilt" classname="org.quilt.frontend.ant.QuiltTask"
+                      classpath="${quilt.classes.dir}"/>
+]]></source>
+        <p>where <code>quilt.classes.dir</code> is a predefined property
+          telling Ant where to start looking for the class.  This form
+          is appropriate if you have obtained Quilt by CVS or have 
+          unzipped a tarball.  In either case Quilt's <code>org</code>
+          will be a subdirectory of <code>quilt.classes.dir.</code></p>
+
+        <p>You can also use a form like the following, appropriate when
+          Quilt is in its jar:</p>
+        <source><![CDATA[
+<taskdef name="quilt" classname="org.quilt.frontend.ant.QuiltTask">
+  <classpath>
+    <pathelement location="lib/quilt-${quilt.version}.jar"/>
+  </classpath>
+</taskdef>
+]]></source>
+        <p>Whichever form you use, the &lt;taskdef&gt; element needs
+          to appear in the build.xml file <em>above</em> the 
+          &lt;quilt&gt; element, where you actually run your tests.</p>
+      </subsection>
+      <subsection name="Quilt Element">
+        <p>Like any other XML element, the &lt;quilt&gt; element 
+          consists of an opening tag with the element name and a 
+          number of attribute/value pairs, some subelements, and a
+          closing tag.</p>
+          
+        <source><![CDATA[
+<quilt dir="." haltonerror="false" checkCoverage="true"
+               checkIncludes="com.xyz." checkExcludes="com.xyz.Test">
+  <batchtest todir="${test.report.dir}">
+    <fileset dir="test">
+      <include name="**/Test*.java"/>
+      <exclude name="**/TestA*"/>
+    </fileset>          
+  </batchtest>
+</quilt>
+]]></source>
+
+        <p>In this example, the attributes defined are <code>dir, 
+            haltonerror, checkCoverage, checkIncludes,</code> and 
+          <code>checkExcludes.</code>  The <code>batchtest</code> 
+          subelement is directed to write its reports to 
+          <code>${test.report.dir}</code> by setting the <code>todir</code>
+          attribute.  The files to be tested are defined using the very
+          convenient Ant <code>fileset</code> element, which in this case
+          looks in and below the <code>test</code> directory for test
+          files, those whose names begin with <code>Test</code> but not
+          <code>TestA.</code></p>
+
+        <p>The table that follows lists the attributes used with
+          the <code>&lt;quilt&gt;</code> element; many also can be used
+          with subelements, allowing them to override these defaults set at
+          the task level.</p>
+
+        <table>
+          <tr><th>attribute</th><th>description</th>
+            <th>required?/default</th></tr>
+          <tr><td colspan="3" bgcolor="yellow">
+              <i><b><a name="testAttr">individual test control</a></b>  
+                Most of these attributes
+                can be set at the task, <code>batchtest,</code> or 
+                individual <code>test</code> level.</i>  For completeness
+                all are listed here.</td></tr>
+          <tr><td>checkCoverage</td><td>enable Quilt coverage checks</td>
+            <td>Not required, default is false</td></tr>
+          <tr><td>checkExcludes</td><td>Comma-separated list of classes 
+              <em>not</em> to run coverage checks on.  This rule is 
+               checked <em>before</em> the rule for inclusion.  There
+               are no wildcards.  If the beginning of a class name 
+               matches a name in the list, it is excluded.</td>
+            <td> Not required.  <code>java</code> and <code>javax</code> 
+              classes are added to the list automatically.</td></tr>
+          <tr><td>checkIncludes</td><td>Comma-separated list of classes to 
+              run coverage checks on.  There are no wild cards.  If the
+              beginning of a class name matches a name in the list and
+              if it has not already been excluded, it is included.</td>
+            <td>Not required, no default.  </td></tr>
+          <tr><td>errorProperty</td><td>Property to be set to "true" if
+              an unexpected error occurs during a test.</td>
+            <td>Not required, no default.</td></tr>
+          <tr><td>failureProperty</td><td>Property to be set to "true"
+              if a failure (or unexpected error) occurs in testing.</td>
+            <td>Not required, no default.</td></tr>
+          <tr><td>filtertrace</td><td>Enable filtering of Ant/Quilt/JUnit
+              exception stack trace lines from reports.</td>
+            <td>Not required, defaults to <code>true</code></td></tr>
+          <tr><td>fork</td><td>Run tests in a separate Java Virtual 
+              Machine (JVM).</td>
+            <td>Not required, defaults to <code>false</code>.</td></tr>
+          <tr><td>haltOnError</td><td>Stop the run if an error occurs.</td>
+            <td>Not required, defaults to <code>false</code>.</td></tr>
+          <tr><td>haltOnFailure</td><td>Stop the run if a test failure
+              (or unexpected error) occurs.</td>
+            <td>Not required, defaults to <code>false</code>.</td></tr>
+          <tr><td><a name="if">if</a></td>
+            <td>Only run tests if the property with this name
+              is set when parsing <code>build.xml</code>.  
+              See <a href="#unless">unless</a></td>
+            <td>Not required, no default.</td></tr>
+          <tr><td>mockTestRun</td><td>Do not actually run the tests; 
+              instead output the set of parameters each test would see
+              if it had been run.  <em>Useful in getting your parameter
+                set right.</em></td>
+            <td>Not required, defaults to <code>false</code>.</td></tr>
+          <tr><td>name</td><td>Name of an individual test.  Cannot be
+              set at task level, ignored in batchtests, where the test
+              name is derived from the file name.</td>
+            <td>Required in &lt;test&gt; subelements, no default.</td></tr>
+          <tr><td>outfile</td><td>Base name of report file.  Cannot be
+              set at task level, ignored in batchtests, where the name
+              is derived from the test file name.</td>
+            <td>Not required, defaults to TEST-name.</td></tr>
+          <tr><td>todir</td><td>Directory to write reports to.</td>
+            <td>Not required, defaults to current directory.</td></tr>
+          <tr><td><a name="unless">unless</a></td>
+            <td>Only run tests if the property with this name
+              is <em>NOT</em> set when parsing <code>build.xml</code>.  
+              See <a href="#if">if</a></td>
+            <td>Not required, no default.</td></tr>
+          
+          <tr><td colspan="3" bgcolor="yellow">
+              <i><b>task control</b> These attributes cannot 
+              be set at the <code>batchtest</code> or <code>test</code>
+              level.</i></td></tr>
+        <tr><td>dir</td><td>The default directory if the JVM is forked.</td>
+            <td>Not required, no default.</td></tr>
+          <tr><td>includeAntRuntime</td><td>Specifically include Ant, Quilt,
+              and Java when forking tests.  <em>Try this if desperate</em></td>
+            <td>Not required, defaults to <code>true</code>.</td></tr>
+          <tr><td>jvm</td><td>The command used to invoke the Java virtual
+              machine. Irrelevant if not forking.</td>
+            <td>Not required, defaults to <code>java.</code></td></tr>
+          <tr><td>maxmemory</td><td>Set the maximum memory for the
+              JVM.  Irrelevant if not forking.</td>
+            <td>Not required, no default.</td></tr>
+          <tr><td>mockExec</td><td>Do not run tests, just display 
+              parameters for the run and test names.  <em>Useful for getting parameters
+                right.</em></td>
+            <td>Not required, defaults to <code>false</code>.</td></tr>
+          <tr><td>newenvironment</td><td>If forking, start with a
+              new system environment.  Irrelevant if not forking.</td>
+            <td>Not required, defaults to <code>false</code>.</td></tr>
+          <tr><td>printsummary</td><td>Print one-line summary for each
+              test.  Acceptable values are <code>on, true, yes, 
+                withOutAndErr; off, false, no.</code>  If the value 
+              is <code>withOutAndErr</code>, test output written to
+              System.out and System.err will be included.</td>
+            <td>Not required, defaults to <code>off.</code></td></tr>
+          <tr><td>showOutput</td><td>Send test output to the Ant log 
+            as well as to the formatters.</td>
+            <td>Not required, defaults to <code>false</code>.</td></tr>
+          <tr><td>timeout</td><td>Stop tests if they don't finish within
+              this time limit (in milliseconds).</td>
+            <td>Not required, defaults to infinity.</td></tr>
+        </table>
+      </subsection>
+      <subsection name="Nested Elements">
+        <p>The following elements can be nested within the Quilt
+          task element.</p>
+        <ol>
+          <li><a href="#batchtest">batchtest</a></li>
+          <li><a href="#classpath">classpath</a></li>
+          <li><a href="#env">env</a></li>
+          <li><a href="#formatter">formatter</a></li>
+          <li><a href="#jvmarg">jvmarg</a></li>
+          <li><a href="#sysproperty">sysproperty</a></li>
+          <li><a href="#test">test</a></li>
+        </ol>
+      </subsection>
+      <subsection name="batchtest">
+        <p><a name="batchtest">Batchtests</a> 
+          can have all of the <code>test</code> attributes
+          except <code>name</code> and <code>outfile</code>.  These 
+          are generated automatically from the names of test files 
+          supplied in the Ant <code>fileset</code> patterns.</p>
+        
+        <p>If <code>name</code> or <code>outfile</code> are supplied, they
+          are ignored.</p>
+
+      </subsection>
+      <subsection name="classpath">
+        <p><a name="classpath">These nested elements</a> look like this:</p>
+        <source><![CDATA[
+<classpath>
+  <pathelement location="lib/quilt-${quilt.version}.jar"/>
+  <pathelement path="${classpath}"/>
+</classpath>
+]]></source>
+        <p>The <em>path</em> form can be used with lists of locations
+          separated by either colons (:) or semicolons (;).  Ant will
+          automatically convert the separator to whatever is expected
+          by the operating system.</p>
+
+        <p><code>classpath</code> will also accept <code>path</code> 
+          and <code>location</code> as attributes, so that </p>
+        <source><![CDATA[
+<classpath location="lib/quilt-${quilt.version}.jar"/>
+]]></source>
+        <p>is also valid.</p>
+
+        <p>It is also possible, though not necessarily advisable, to
+          build classpaths using Ant's <code>dirset, filelist,</code>
+          and <code>filelist</code> elements.  See the <em>Ant</em>
+          manual for further information on this.</p>
+      </subsection>
+      
+      <subsection name="env">
+        <p><a name="env">This nested element</a> sets up an environmental 
+          variable to pass to the system command.  Ignored if not forking.</p>
+
+        <table>
+          <tr><th>attribute</th><th>description</th><th>required?</th></tr>
+          <tr><td>key</td><td>The <b>name</b> of the environmental 
+              variable</td>
+            <td>yes</td></tr>
+          <tr><td>value</td><td>The value of the environmental variable
+              in literal form; no further translation will be supplied</td>
+            <td rowspan="3" valign="center">Exactly one of these.</td></tr>
+          <tr><td>file</td><td>The value as a file name; Ant will 
+              translate the name supplied into an absolute path name.</td></tr>
+          <tr><td>path</td><td>The value as a colon- or semicolon-separated
+              list of paths.  Ant will translate the separator into whatever
+              the operating system requires</td></tr>
+        </table>
+      </subsection>
+      <subsection name="formatter">
+        <p><a name="formatter">Report formatters</a>
+          can be set at the task, batchtest, or test
+          level.  Formatters set at low levels (test or batchtest)
+          override any set at higher levels.</p>
+
+        <p>There are standard formatters identified by short names, 
+          currently three: <code>brief,</code> <code>plain,</code> 
+          and <code>xml.</code>  A fourth, <code>summary,</code>
+          is run if the <code>summary</code> attribute is set.  Any
+          or all of these formatters can be run in combination.</p>
+
+        <p>The <code>brief</code> formatter prints detailed information
+          only on failed tests.  The default <code>plain</code>
+          formatter prints a summary line for each test.</p>
+        
+        <p>The <code>xml</code>
+          formatter supplies test output in XML format; this includes a
+          full list of system properties, so the output can be quite
+          verbose. The formatter may strip characters unacceptable to 
+          XML from the output.
+        </p>
+        <table>
+          <tr><th>attribute</th><th>description</th>
+            <th>required/default</th></tr>
+          <tr><td>classname</td><td>Name of formatter class.  Must comply with
+            <code>org.quilt.reports.Formatter</code></td>
+            <td>Not required.  Cannot be used if <code>type</code>
+              attribute is set.</td></tr>
+          <tr><td>extension</td><td>Extension to append to output file
+              name.  Ignored if formatter specified by <code>type</code>
+              attribute.</td>
+            <td>Not required, defaults to <code>.txt</code></td></tr>
+          <tr><td>type</td><td>Standard formatter - <code>brief, plain,</code>
+              or <code>xml.</code></td>
+            <td>Not required, defaults to <code>plain.</code></td></tr>
+          <tr><td>usefile</td><td>Should output be sent to file?</td>
+            <td>Not required, defaults to <code>true</code></td></tr>
+        </table>
+      </subsection>
+      <subsection name="jvmarg">
+        <a name="jvmarg">Sets additional parameters</a> to be passed 
+        to the JVM if forked.  Ignored if not forking.
+        <table>
+          <tr><th>attribute</th><th>description</th><th>required?</th></tr>
+          <tr><td>value</td><td>a single command line argument; may 
+              contain spaces</td>
+            <td rowspan="4" valign="center">Exactly one of these</td></tr>
+          <tr><td>file</td><td>a file name; Ant will translate it into
+              the absolute path name of the file</td></tr>
+          <tr><td>line</td><td>a comma-separated list of command line
+              arguments <em>avoid using this form</em></td></tr>
+          <tr><td>path</td><td>a colon or semicolon separated list of
+              paths; Ant will convert the separator to whatever the
+              operating system needs</td></tr>
+        </table>
+      </subsection>
+      
+      <subsection name="sysproperty">
+        <p><a name="sysproperty">Sets system properties</a>
+          which will be passed to the JVM 
+          for the test run.  Ignored if not forking.</p>
+        <p>See <a href="#env">env</a> for a list
+          of attributes.
+        </p>
+      </subsection>
+      
+      <subsection name="test">
+        <p><a name="test">Tests</a>
+          are defined individually or using batchtests.  In either
+          case the test attributes in the first part of 
+          <a href="#testAttr">the table above</a> 
+          can be used.  Batchtest attributes are applied to all tests
+          in the set.  Test attributes apply only to that particular test.
+          In either case they override any attributes set at the task
+          level.</p>
+
+        <p>The <code>test</code>element may <em>not</em> be nested
+          within a <code>batchtest</code> element.</p>
+
+
+
+      <!-- keep at the bottom -->
+      <hr/>
+        <em>This material is copyright 2003 by James David Dixon 
+        ("Jim Dixon") and is made available under the 
+        <a href="community/artistic-license.html">Artistic License</a>.</em>
+        
+      </subsection>
+      
+    </section>
+  </body>
+</document>
+      

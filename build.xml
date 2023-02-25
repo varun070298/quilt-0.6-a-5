@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="jar" name="quilt" basedir=".">
+
+  <!-- JDD ADDS -->
+  <property name="noget"          value="true"/>
+  <!-- END JDD  -->
+  <property name="name"           value="quilt"/>
+  <property name="version"        value="0.6-a-5"/>
+
+  <property name="example.dir"    value="example"/>
+  <!-- ========================================================== -->
+  <!-- S O U R C E   P R O P E R T I E S                          -->
+  <!-- ========================================================== -->
+  <property name="src.dir"        value="src/java"/>
+  <property name="test.src.dir"   value="src/test"/>
+  <property name="sample.src.dir" value="src/test-data"/>
+  <property name="xdoc.dir"       value="xdocs"/>
+  <!-- ========================================================== -->
+  <!-- B U I L D   P R O P E R T I E S                            -->
+  <!-- ========================================================== -->
+  <property name="build.dir" value="target"/>
+
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="lib.dir" value="${build.dir}/lib"/>
+  <property name="test.classes.dir" value="${build.dir}/test-classes"/>
+  <property name="sample.classes.dir" value="${build.dir}/test-data-classes"/>
+  <property name="sample.jar.name" value="test-data"/>
+  <property name="test.report.dir" value="${build.dir}/test-reports"/>
+  <!-- ========================================================== -->
+  <!-- D I S T R I B U T I O N   P R O P E R T I E S              -->
+  <!-- ========================================================== -->
+  <property name="dist.base" value="distribution"/>
+  <!-- dist.dir and src.dist.dir can be changed using an <antcall> -->
+  <property name="dist.dir" value="dist"/>
+  <property name="dist.lib" value="${dist.dir}/lib"/>
+  <property name="src.dist.dir" value="dist-src"/>
+  
+  <property name="dist.name" value="${name}-${version}"/>
+  <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
+  
+  <!-- ========================================================== -->
+  <!-- I N I T                                                    -->
+  <!-- ========================================================== -->
+  <target name="init"    
+                         description="o Initializes some properties">
+    <mkdir dir="${lib.dir}"/>
+    <condition property="noget">
+      <equals arg2="only" arg1="${build.sysclasspath}">
+      </equals>
+    </condition>
+  </target>
+
+  <!-- ========================================================== -->
+  <!-- G E T  J A R S                                             -->
+  <!-- ========================================================== -->
+  <target name="get-deps"  unless="noget" 
+                           description="o Get jars from repository"
+                                                     depends="init" >
+    <get dest="${lib.dir}/bcel-5.1.jar" usetimestamp="true" 
+          ignoreerrors="true" 
+          src="http://www.ibiblio.org/maven/bcel/jars/bcel-5.1.jar">
+    </get>
+    <!-- don't need this any more ...
+    <get dest="${lib.dir}/commons-cli-1.0.jar" usetimestamp="true" 
+          ignoreerrors="true" 
+ src="http://www.ibiblio.org/maven/commons-cli/jars/commons-cli-1.0.jar">
+    </get>
+    -->
+    <get dest="${lib.dir}/log4j-1.1.3.jar" usetimestamp="true" 
+          ignoreerrors="true" 
+          src="http://www.ibiblio.org/maven/log4j/jars/log4j-1.1.3.jar">
+    </get>
+    <get dest="${lib.dir}/junit-3.8-1.jar" usetimestamp="true" 
+          ignoreerrors="true" 
+          src="http://www.ibiblio.org/maven/junit/jars/junit-3.8-1.jar">
+    </get>
+  </target> 
+
+  <!-- ========================================================== -->
+  <!-- C O M P I L E   S O U R C E   F I L E S                    -->
+  <!-- ========================================================== -->
+  <target name="compile"            description="o Compile the code" 
+                                                  depends="get-deps">
+    <mkdir dir="${classes.dir}"/>
+    <javac destdir="${classes.dir}" deprecation="true" debug="true" 
+                          optimize="false" excludes="**/package.html">
+      <src>
+        <pathelement location="${src.dir}"/>
+      </src>
+      <classpath>
+        <fileset dir="${lib.dir}">
+          <include name="*.jar"/>
+        </fileset>
+      </classpath>
+    </javac>
+  </target>
+
+  <!-- ========================================================== -->
+  <!-- C O M P I L E   T E S T S                                  -->
+  <!-- ========================================================== -->
+  <target name="compile-tests"    description="o Compile unit tests"
+                                                   depends="compile">
+    <mkdir dir="${test.classes.dir}"/>
+    <javac destdir="${test.classes.dir}" deprecation="true" debug="true"
+                         optimize="false" excludes="**/package.html">
+      <src>
+        <pathelement location="${test.src.dir}"/>
+      </src>
+
+      <classpath>
+        <fileset dir="${lib.dir}">
+          <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${classes.dir}"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <!-- ========================================================== -->
+  <!-- C O M P I L E   S A M P L E   C L A S S E S                -->
+  <!-- ========================================================== -->
+  <target name="compile-samples"  
+           description="o Compile sample classes, build samples jar"
+                                             depends="compile-tests">
+    <mkdir dir="${sample.classes.dir}"/>
+    <javac destdir="${sample.classes.dir}" 
+                        deprecation="true" debug="true"
+                        optimize="false" excludes="**/package.html">
+      <src>
+        <pathelement location="${sample.src.dir}"/>
+      </src>
+
+      <classpath>
+        <fileset dir="${lib.dir}">
+          <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${classes.dir}"/>
+      </classpath>
+    </javac>
+    <jar jarfile="${build.dir}/${sample.jar.name}.jar" 
+                excludes="**/package.html" basedir="${sample.classes.dir}"/>
+  </target>
+
+  <!-- ========================================================== -->
+  <!-- U N I T  T E S T S                                         -->
+  <!-- ========================================================== -->
+  <target name="test"             description="o Run the unit tests" 
+                                            depends="compile-samples">
+    <mkdir dir="${test.report.dir}"/>
+    <junit 
+    	dir="./" 
+	failureproperty="test.failure" 
+        fork="true" 
+	haltonerror="false"
+	printSummary="no"
+      >
+      <sysproperty key="basedir" value="."/>
+      <formatter type="xml"/>
+      <formatter usefile="false" type="plain"/>
+
+      <classpath>
+        <fileset dir="${lib.dir}">
+          <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${test.classes.dir}"/> 
+        <pathelement path="${sample.classes.dir}"/> 
+        <pathelement path="${classes.dir}"/> 
+      </classpath>
+
+      <!-- As end of day Fri 26 Oct 2003, all tests succeeded -->
+      <!-- After introducing TestStmtCoverage and Looper, only 
+      	   Looper fails                                       -->
+      <!-- More careful ferreting found 1 minor bug (swept under
+           the carpet and 5 serious bugs, all in TestStmtCoverage
+	                                                      -->
+      <batchtest todir="${test.report.dir}">
+        <fileset dir="${test.src.dir}">
+          <include name="**/*Test*.java"/>
+        </fileset>
+      </batchtest>
+      <!-- usual collection: careful, that's not a zero in A2O
+           ... and this is an EXclude:
+          <exclude name="**/TestStmtCoverage.java"/>
+
+          <include name="**/*Test*.java"/>
+          <include name="**/TestA2O.java"/>
+          <include name="**/TestBlockCode.java"/>
+          <include name="**/TestClassFactory.java"/>
+          <include name="**/TestGraphTransformer.java"/>
+          <include name="**/TestNestedTryBlocks.java"/>
+          <include name="**/TestQCLJars.java"/>
+          <include name="**/TestQuiltClassLoader.java"/>
+          <include name="**/TestRegistry.java"/>
+          <include name="**/TestSamples.java"/>
+	  <include name="**/TestSortedBlocks.java"/>
+          <include name="**/TestStmtCoverage.java"/>
+          <include name="**/TestTransformer.java"/>
+          <include name="**/TestTryStacks.java"/>
+
+        -->
+    </junit>
+  </target>
+  
+  <!-- ========================================================== -->
+  <!-- C R E A T E   J A R                                        -->
+  <!-- ========================================================== -->
+  <target name="jar"                  description="o Create the jar" 
+                                                      depends="test">
+    <jar jarfile="${build.dir}/${dist.name}.jar" 
+                excludes="**/package.html" basedir="${classes.dir}"/>
+  </target>
+  <!-- ========================================================== -->
+  <!-- G E N E R A T E   J A V A D O C                            -->
+  <!-- ========================================================== -->
+  <target name="javadoc"            description="o Generate javadoc" 
+                                                       depends="jar">
+    <mkdir dir="${javadoc.dir}"/>
+    <tstamp>
+      <format pattern="2001-yyyy" property="year">
+      </format>
+    </tstamp>
+    <property name="copyright" value="Copyright &amp;copy;  The Apache Software Foundation. All Rights Reserved.">
+    </property>
+    <property name="title" value="Quilt latest API">
+    </property>
+    <javadoc use="true" private="false" destdir="${javadoc.dir}"
+            author="true" version="true" sourcepath="${src.dir}"
+        packagenames="org.quilt.*">
+      <classpath>
+        <fileset dir="${lib.dir}">
+          <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${build.dir}/${dist.name}.jar"/>
+      </classpath>
+    </javadoc>
+  </target>
+
+  <!-- ========================================================== -->
+  <!-- B I N A R Y   D I S T R I B U T I O N                      -->
+  <!-- ========================================================== -->
+  <target name="dist"   description="o Create a binary distribution"
+                                                   depends="javadoc">
+    <mkdir dir="${dist.base}"/>
+    <mkdir dir="${dist.base}/src"/>
+    <mkdir dir="${dist.base}/bin"/>
+   
+    <delete dir="${dist.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+    <!-- text files   -->
+    <copy todir="${dist.dir}" >
+      <fileset dir="${basedir}" includes="LICENSE*, README*"/>
+    </copy>
+    <!-- jars -->
+    <copy todir="${dist.dir}" >
+      <fileset dir="${build.dir}" includes="*.jar"/>
+    </copy>
+    <!-- lib directory -->
+    <copy todir="${dist.dir}/lib" >
+      <fileset dir="${lib.dir}" includes="*.jar"/>
+    </copy>
+    <!-- example directories -->
+    <copy todir="${dist.dir}/${example.dir}">
+      <fileset dir="${example.dir}">
+      	<include name="**/*.java"/>
+      	<include name="**/*.sh"/>
+      	<include name="**/*.xml"/>
+      	<exclude name="**/target/**"/>
+      </fileset>
+    </copy>
+  </target>
+  <!-- ========================================================== -->
+  <!-- S O U R C E   D I S T R I B U T I O N                      -->
+  <!-- ========================================================== -->
+  <target name="src-dist" 
+                          description="o Create source distribution" 
+                                                       depends="jar">
+    <delete dir="${src.dist.dir}"/>
+    <mkdir  dir="${src.dist.dir}"/>
+   
+    <copy todir="${src.dist.dir}" file="LICENSE.txt" />
+    <copy todir="${src.dist.dir}" file="build.xml" />
+    <!-- 
+    <copy todir="${src.dist.dir}" file="maven.properties" />
+    <copy todir="${src.dist.dir}" file="maven.xml" />
+      -->
+    <copy todir="${src.dist.dir}" file="project.properties" />
+    <copy todir="${src.dist.dir}" file="project.xml" />
+    
+    <copy todir="${src.dist.dir}/${src.dir}" >
+      <fileset dir="${src.dir}" includes="*.jar"/>
+      <fileset dir="${src.dir}" includes="**/*.java"/>
+    </copy>
+  
+    <copy todir="${src.dist.dir}/${test.src.dir}" >
+      <fileset dir="${test.src.dir}" includes="**/*.java"/>
+    </copy>
+
+    <copy todir="${src.dist.dir}/${sample.src.dir}" >
+      <fileset dir="${sample.src.dir}" includes="**/*.java"/>
+    </copy>
+
+    <copy todir="${src.dist.dir}/${xdoc.dir}" >
+      <fileset dir="${xdoc.dir}" includes="**/*.css"/>
+      <fileset dir="${xdoc.dir}" includes="**/*.gif"/>
+      <fileset dir="${xdoc.dir}" includes="**/*html"/>
+      <fileset dir="${xdoc.dir}" includes="**/*.jpg"/>
+      <fileset dir="${xdoc.dir}" includes="**/*.php"/>
+      <fileset dir="${xdoc.dir}" includes="**/*.png"/>
+      <fileset dir="${xdoc.dir}" includes="**/*.xml"/>
+    </copy>
+  </target>
+  <!-- ========================================================== -->
+  <!-- T A R B A L L S                                            -->
+  <!-- ========================================================== -->
+  <target name="tarballs"              description="o Make tarballs"
+                                                       depends="jar">
+    <!-- BINARY DISTRIBUTION ==================================== -->
+    <delete dir="${dist.name}"/>
+    <mkdir dir="${dist.base}"/>
+    <mkdir dir="${dist.base}/bin"/>
+   
+    <antcall inheritAll="false" target="dist">
+      <param name="dist.dir" value="${dist.name}"/>
+    </antcall>
+    <tar longfile="gnu" destfile="${dist.base}/bin/${dist.name}-bin.tar">
+      <tarfileset dir="${dist.name}/..">
+        <include name="${dist.name}/**"/>
+      </tarfileset>
+    </tar>
+    <gzip zipfile="${dist.base}/bin/${dist.name}-bin.tar.gz"
+          src="${dist.base}/bin/${dist.name}-bin.tar"/>
+    <delete file="${dist.base}/bin/${dist.name}-bin.tar"/>
+    <checksum fileext=".md5">
+      <fileset dir="${dist.base}/bin/">
+        <include name="**/*"/>
+        <exclude name="**/*.asc"/>
+        <exclude name="**/*.md5"/>
+      </fileset>
+    </checksum>
+
+    <!-- SOURCE DISTRIBUTION ==================================== -->
+    <delete dir="${dist.name}"/>
+    <mkdir dir="${dist.base}"/>
+    <mkdir dir="${dist.base}/src"/>
+   
+    <antcall inheritAll="false" target="src-dist">
+      <param name="src.dist.dir" value="${dist.name}"/>
+    </antcall>
+    <tar longfile="gnu" destfile="${dist.base}/src/${dist.name}-src.tar">
+      <tarfileset dir="${dist.name}/..">
+        <include name="${dist.name}/**"/>
+      </tarfileset>
+    </tar>
+    <gzip zipfile="${dist.base}/src/${dist.name}-src.tar.gz"
+          src="${dist.base}/src/${dist.name}-src.tar"/>
+    <delete file="${dist.base}/src/${dist.name}-src.tar"/>
+    <checksum fileext=".md5">
+      <fileset dir="${dist.base}/src/">
+        <include name="**/*"/>
+        <exclude name="**/*.asc"/>
+        <exclude name="**/*.md5"/>
+      </fileset>
+    </checksum>
+
+  </target>
+
+  <!-- ========================================================== -->
+  <!-- C L E A N                                                  -->
+  <!-- ========================================================== -->
+  <target name="clean" 
+                  description="o Clean up the generated directories">
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+    <delete dir="${src.dist.dir}"/>
+    <!-- does NOT remove distribution directory -->
+  </target>
+
+</project>

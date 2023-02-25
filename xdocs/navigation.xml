@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<project name="Quilt">
+  <title>Quilt</title>
+  <body>
+    <links>
+      <!-- 
+      <item name="Quilt Wiki" href="http://quilt.sourceforge.net/wiki/" />
+      -!-->
+      <item name="Quilt 0.6a" href="/quilt-0.6a/" />
+      <item name="SourceForge Project Page" 
+            href="http://www.sourceforge.net/projects/quilt" />
+      <item name="Download" 
+            href="http://sourceforge.net/project/showfiles.php?group_id=32481"/>
+      <item name="Hosted by SourceForge" 
+            href="http://www.sourceforge.net/" />
+    </links>
+
+    <menu name="Quilt">
+      <item name="Overview"           href="/index.html"/>
+      <item name="Getting Started"    href="/getting-started.html"/>
+      <item name="FAQ"                href="/faq.html"/>
+      <item name="User Tutorials" 
+                                href="/tutorials/index.html" collapse="true">
+        <item name="Ant"        href="/tutorials/ant.html"     />
+        <item name="JUnit"      href="/tutorials/junit.html"   />
+        <item name="Testing"    href="/tutorials/testing.html" />
+      </item>
+      <item name="Glossary"           href="/glossary.html"/>
+      <!-- COMMENTED OUT ============================================
+      <item name="User Guide"         href="/userguide.html"/>
+      <item name="Download"           href="/download.html"/>
+      <item name="CVS"                href="/cvs.html"/>
+        <item name="Maven"      href="/tutorials/maven.html"   />
+        <item name="Quilt"      href="/tutorials/quilt.html"   />
+      <item name="For Developers" 
+                                href="/developers/index.html" collapse="true">
+        <item name="To Do List" href="/developers/todo.html"  />
+      </item>
+    </menu>
+    <menu name="Community">
+      <item name="Getting Involved" 
+                                href="/community/index.html"   />
+       == END COMMENTED OUT ====================================== -->
+      <item name="License"      href="/community/license.html" />
+    </menu>
+  </body>
+</project>

@@ -1,0 +1,295 @@
+<document>
+  <properties>
+    <title>JUnit Tutorial</title>
+      <author email="jddixon@users.sourceforge.net">Jim Dixon</author>
+  </properties>
+  <body>
+    <section name="JUnit Tutorial">
+      <subsection name="Introduction">
+        <p>This is not a thorough treatise on JUnit.  But if you haven't
+        used JUnit before, I suspect that it is about as much as you
+        need.</p>
+      </subsection>
+      
+      <subsection name="Getting JUnit">
+        <p> Go to 
+          <a href="http://sourceforge.net/projects/junit">Sourceforge</a>
+          for downloads.  The download button is towards the middle of
+          the Web page, on the righthand side.  At the time of writing
+          the current version is 3.8.1, from September 2002.</p>
+
+        <p>JUnit also comes bundled in with a lot of other software.
+          In our experience, this kindness often causes trouble 
+          because of version inconsistencies or classpath problems.
+          So we recommend that you 
+          <ul>
+            <li>get JUnit 3.8.1 (or whatever is current) from Sourceforge</li>
+            <li>and then find out and remove any other versions of 
+              <code>junit.jar</code> on your system</li>
+          </ul>
+          While you might think it extreme, it can save you hours of confusion.
+        </p>
+
+        <p>If you are using Maven, it will try to defeat you on this
+          score, downloading its own copy of JUnit and hiding it in
+          <code>$HOME/.maven</code>.  Look through the Maven scripts, 
+          find out what is doing this, and comment it out.</p>
+        
+        <p>Don't forgot to remove the jar from <code>.maven</code></p>
+      </subsection>
+
+      <subsection name="Installation and the Classpath">
+        <p>The jarfile needs to be installed where it will be on 
+          whatever classpath you are using.  If you are using JUnit
+          with Ant, there are very good reasons for putting the
+          Ant and JUnit jars in the same place, say in 
+          <code>$HOME/lib</code> - a particularly good place because
+          the name is short and easy to remember.</p>
+
+        <p>Once again, you need to be sure that there is only one
+          set of Ant jars around (<code>ant.jar</code> and 
+          <code>optional.jar</code>) and that these are on the
+          right classpath.</p>
+
+        <p>It's important to keep in mind that there are at least three 
+          relevant classpath's -- the one seen by Java when it 
+          starts running Ant; the one seen by Ant; and the classpath
+          passed by Ant to JUnit and Quilt when they are running tests.</p>
+
+        <p>Ant must be on the first classpath.  The second classpath
+          is defined in <code>build.xml</code>.  JUnit and Quilt must
+          be on that classpath, or Ant will not be able to find them 
+          to run them.  The third classpath is defined in 
+          the &lt;quilt&gt; element in <code>build.xml</code>.  
+          That must include <code>junit.jar,</code> and 
+          <code>quilt.jar</code>.  It's easiest to manage these 
+          requirements if all four jars are in the same place and
+          on all three classpaths.</p>
+
+      </subsection>
+
+      <subsection name="Setting Up Your Work Directories">
+        <p>While it is by no means necessary, it makes things much
+          easier if unit tests are set up in a parallel hierarchy
+          to that used for the software under test.  The Quilt
+        software is set up like this:</p>
+<pre>
+  src
+    java
+      org
+        quilt
+          cl
+            QuiltClassLoader.java
+  src
+    test
+      org
+        quilt
+          cl
+            TestQuiltClassLoader.java
+</pre>
+        <p>The target directory, which the compiler writes compiled classes
+          to, is organized in exactly the same way.</p>
+
+      </subsection>
+
+      <subsection name="Writing New Code">
+        <p>If you are writing new code from scratch, the approach sketched
+          out so far can make for very rapid software development.  Each
+          class in the <code>java</code> side of the source hierarchy is
+          matched with a class on the <code>test</code> side.  The name 
+          of the second is that of the first prefixed with "Test".  Code
+          development goes in a fast loop:
+          <ul>
+            <li>write Javadoc comments specifying the code </li>
+            <li>write some code </li>
+            <li>write tests verifying that the code is correct</li>
+            <li>run Ant</li>
+            <li>regenerate Javadocs periodically</li>
+            <li>when all tests succeed, run Quilt coverage tests to 
+              verify that testing is thorough</li>
+          </ul>
+          This cycle should be iterated several times a day, so that 
+          code always either works or is very close to working.</p>
+          
+      </subsection>
+
+      <subsection name="JUnit Tests">
+        <p>Most JUnit tests are written like this:</p>
+          <ul>
+            <li>Create a skeleton in the right package.</li>
+            <li>import junit.framework.* </li>
+            <li>import whatever other packages you need</li>
+            <li>create a public class extending TestCase</li>
+            <li>add a constructor with a single String argument that passes 
+                the argument to <code>super</code> </li>
+            <li>optionally add a <code>setUp</code></li>
+            <li>optionally add a <code>tearDown</code></li>
+            <li>add a lot of <code>public void testX(){}</code></li>
+          </ul>
+          <p>This gives you:</p>
+
+<source><![CDATA[
+package com.xyz.stuff;
+
+import junit.framework.*;
+
+public class TestStuff extends TestCase {
+    public TestStuff(String name) {
+        super(name);
+    }
+    protected void setUp() {
+    }
+    protected void tearDown() {
+    }
+    // there are normally many methods like this
+    public void testX() {
+    }
+}
+]]></source>
+
+        <p>While there are other JUnit classes, <code>TestCase</code>
+          is the workhorse.  If you write tests to this pattern, Ant
+          will grope around, find all <code>public void</code> methods
+          whose names begin with <b>test</b>, and run them.  That's 
+          all there is to it.</p>
+      </subsection>
+
+      <subsection name="setUp">
+        <p>JUnit runs this method before running each of the tests. </p>
+
+        <p>Frequently you need to create a standard <em>fixture</em> to
+          run your code against.  This might be something fairly complex,
+          perhaps an elaborate linked list or some other data structure 
+          used for exercising your code.  Generally you will want a 
+          fresh copy of this for each test.  You put the code for 
+          generating this fixture in <code>setUp.</code></p>
+        
+      </subsection>
+
+      <subsection name="tearDown">
+        <p>This is the companion to <code>setUp,</code> run <em>after</em>
+          each test to take down the test fixture.</p>
+
+        <p>In our experience <code>tearDown</code> is used much less 
+          commonly than <code>setUp</code>.  It does no harm to leave a 
+          stub in your <code>TestCase.</code></p>
+      </subsection>
+
+      <subsection name="Assertions">
+        <p>Assertions are what JUnit is all about.  The code you are 
+        testing is doing something.  Your assertions will 
+        test that after running the software under test with a certain 
+        set of inputs, you will have a specified output.  A typical
+        assertion is something like</p>
+
+<source><![CDATA[
+  // pattern:
+  //   assertCondition(failureMsg, expected, actual);
+  assertEquals("cube factory is failing", 8, cubeIt (2));
+]]></source>
+
+        <p>You can omit the message, but this is generally undesirable.
+          To keep things rolling along, you want a clear and unambiguous
+          description of what failed; if you don't describe the failure, 
+          when it does go wrong you will spend time trying to guess what
+          actually failed, or you will have to go back and add the 
+          message.</p>
+
+        <p>There are many JUnit assertions, all of them documented in 
+          the Javadocs.  In all cases, what is <code>expected</code> and
+          the <code>actual</code> must be of the same type.</p>
+        <ul>
+          <li>assertEquals</li>
+          <li>assertTrue</li>
+          <li>assertFalse</li>
+          <li>assertNull</li>
+          <li>assertNotNull</li>
+          <li>assertSame</li>
+          <li>assertNotSame</li>
+          <li>fail</li>
+        </ul>
+        <p>All have two variants.  For all except <code>fail</code> the 
+          first variant accepts two arguments <code>(expected,
+            actual)</code> and the second three <code>(failureMsg, 
+            expected, actual)</code>.  </p>
+
+        <p>In actual use, the most common assertion appears to be
+          <code>assertEquals</code>.</p>
+
+        <p>We strongly recommend that instead of reading a lot about
+          unit testing, you write a lot of test cases.  After a while,
+          it becomes second nature, and you have understood most of
+          what is important regarding the subject.</p>
+
+        <p>Then it makes a lot of sense to go back and read about it.</p>
+      </subsection>
+      <subsection name="Make Ant Do the Work for You">
+        <p>As your software becomes bigger, tests take longer to run
+          and it also becomes more difficult to track exactly what is
+          going on.  Use Ant's filesets to maintain your focus.</p>
+
+        <p>This is easy to do if the software under test and the 
+          tests themselves are in parallel hierarchies.  This allows
+          you to casually switch between testing individual classes,
+          testing all of the classes in a package, and running all
+          of the tests, with just a few keystrokes in the editor:</p>
+
+<source><![CDATA[
+  <batchtest todir="${test.report.dir}">
+    <fileset dir="${test.src.dir}">
+      <include name="**/TestStmtCoverage.java"/>
+      <include name="**/TestRegistry.java"/>
+    </fileset>
+  </batchtest>
+  
+  <!-- other sets commonly tested; the first means 'all tests'
+      <include name="**/*Test*.java"/>
+      <include name="**/graph/Test*.java"/>
+      <include name="**/TestA2O.java"/>
+      <include name="**/TestBlockCode.java"/>
+      <include name="**/TestClassFactory.java"/>
+   -->
+]]></source>
+        <p>The build.xml fragment above runs only two tests, 
+          <code>TestStmtCoverage</code> and <code>TestRegistry</code>.
+          If the first line in the commented group is copied into the
+          <code>fileset,</code> it runs all tests.</p>
+      </subsection>
+
+      <subsection name="Fixing Old Code">
+        <p>Life is more difficult if you are maintaining existing code.
+          The practical approach is usually to introduce unit testing
+          gradually, working towards the parallel directory hierarchies
+          described above.</p>
+
+        <p>This often encounters a good deal of opposition, partially 
+          because of the short-term expense and partially because of 
+          the intellectual and political investment in the status quo.</p>
+
+        <p>If you persist, you will generally find that the code which
+          most resists this approach is the code that most needs 
+          testing, because it is the buggiest.</p>
+      </subsection>
+          
+      <subsection name="More Information">
+        <p>There are two JUnit Web sites, one their own
+          <a href="http://www.junit.org">Web site</a> and the
+          other at
+          <a href="http://junit.sourceforge.net">Sourceforge</a>.
+          Both are very good.  The first has links to Web sites 
+          describing dozens of other software packages using JUnit.  
+          The second is a tutorial with many references to other articles, 
+          papers, and Web sites.</p>
+
+
+      <!-- keep at the bottom -->
+      <hr/>
+        <em>This material is copyright 2003 by James David Dixon 
+        ("Jim Dixon") and is made available under the 
+        <a href="community/artistic-license.html">Artistic License</a>.</em>
+      </subsection>
+
+    </section>
+  </body>
+</document>
+      

@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<project>
+  <pomVersion>3</pomVersion>
+  <id>quilt</id>
+  <name>Quilt</name>
+  <currentVersion>0.6-a-5</currentVersion>
+  <!-- name is used to generate copyright notice -->
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>http://quilt.sourceforge.net/</url>
+    <logo>http://sourceforge.net/sflogo.php?group_id=32481&amp;type=5</logo>
+  </organization>
+
+  <inceptionYear>2001</inceptionYear>
+  <package>org.quilt</package>
+  <logo>/images/quilt02.gif</logo>
+  <!-- The first <p> is implicit, as is the terminating </p>.  Omit both. -->
+  <description>
+    <![CDATA[
+    Quilt is a software development tool that measures coverage, the
+    extent to which unit testing exercises the software under test.  It
+    is optimized for use with the 
+    <a href="http://www.junit.org">JUnit</a> 
+    unit test package, the 
+    <a href="http://ant.apache.org">Ant</a>
+    Java build facility, and the 
+    <a href="http://www.maven.org">Maven</a> 
+    project management toolkit.</p>
+
+    <p>Quilt is currently undergoing a major transformation.  The next 
+    version (0.6a) is expected to be released some time before 
+    15 August 2003.
+    ]]>
+  </description>
+  <shortDescription>Code Coverage Tool for Java</shortDescription>
+
+  <url>http://quilt.sourceforge.net/</url>
+  <issueTrackingUrl>http://www.sourceforge.net/tracker/?group_id=32481</issueTrackingUrl>
+  <siteAddress>quilt.sourceforge.net</siteAddress>
+  <!-- /home/groups/q/qu/quilt/htdocs -->
+  <siteDirectory>/www/quilt.sourceforge.net/www/</siteDirectory>
+  <!-- ?? -->
+  <distributionDirectory>/www/quilt.sourceforge.net/builds/quilt</distributionDirectory>
+  
+  <repository> 
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/quilt:quilt-dev</connection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/quilt</url>
+  </repository>
+
+  <!-- jdd
+  <versions>
+    <version>
+      <id>latest</id>
+      <name>latest</name>
+      <tag>HEAD</tag>
+    </version>
+  </versions>
+  -!-->
+  
+  <branches>
+  </branches>
+
+  <mailingLists>
+    <mailingList>
+      <name>Quilt Developers</name>
+      <subscribe>quilt-devel-subscribe@lists.sourceforge.net</subscribe>
+      <unsubscribe>quilt-devel-unsubscribe@lists.sourceforge.net</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_id=6993</archive>
+    </mailingList>
+  </mailingLists>
+
+  <developers>
+    <developer>
+      <name>Jim Dixon</name>
+      <id>jdd</id>
+      <email>jdd@users.sourceforge.net</email>
+      <organization></organization>
+      <roles>
+        <role>Admin</role>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>+0</timezone>
+    </developer> 
+
+    <developer>
+      <name>David Dixon-Peugh</name>
+      <id>dpeugh</id>
+      <email>ddp@apache.org</email>
+      <organization></organization>
+      <roles>
+        <role>(inactive)</role>
+      </roles>
+    </developer>
+
+    <developer>
+      <name>Tom Copeland</name>
+      <id>tcopeland</id>
+      <email>tcopeland@apache.org</email>
+      <organization>InfoEther</organization>
+      <roles>
+        <role>(inactive)</role>
+      </roles>
+    </developer>
+
+  </developers>
+
+  <contributors>
+    <contributor>
+      <name>Mark Pollack</name>
+      <email>markpollack@users.sourceforge.net</email>
+    </contributor>
+  </contributors>
+
+  <dependencies>
+    <dependency>
+      <id>ant</id>
+      <version>1.5.3-1</version>
+      <url>http://jakarta.apache.org/ant/</url>
+    </dependency>
+
+    <dependency>
+      <id>bcel</id>
+      <version>5.1</version>
+      <url>http://jakarta.apache.org/bcel/</url>
+    </dependency>
+
+    <!-- ? -->
+    <dependency>
+      <id>commons-collections</id>
+      <version>1.0</version>
+      <url>http://jakarta.apache.org/commons/collections.html</url>
+    </dependency>
+
+    <dependency>
+      <id>commons-cli</id>
+      <version>1.0-dev</version>
+      <url>http://jakarta.apache.org/commons/sandbox/cli/</url>
+    </dependency>
+
+    <dependency>
+      <id>junit</id>
+      <version>3.8.1</version>
+      <url>http://www.junit.org/</url>
+    </dependency>
+
+    <dependency>
+      <id>log4j</id>
+      <version>1.1.3</version>
+      <url>http://jakarta.apache.org/log4j</url>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <nagEmailAddress>quilt-devel@lists.sourceforge.net</nagEmailAddress>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <integrationUnitTestSourceDirectory />
+    <aspectSourceDirectory></aspectSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/Test*.java</include>
+      </includes>
+    </unitTest>    
+
+    <integrationUnitTestPatterns />
+
+    <!-- tasklist plugin is buggy, trying to drop -->
+    <reports>
+      <report>maven-changelog-plugin</report>
+      <report>maven-changes-plugin</report>
+      <report>maven-checkstyle-plugin</report>
+      <report>maven-developer-activity-plugin</report>
+      <report>maven-file-activity-plugin</report>
+      <report>maven-javadoc-plugin</report>
+      <report>maven-jdepend-plugin</report>
+      <report>maven-license-plugin</report>
+      <report>maven-linkcheck-plugin</report>
+      <report>maven-pmd-plugin</report>
+    </reports>
+
+    <!-- J A R  R E S O U R C E S -->
+    <!-- Resources that are packaged up inside the JAR file -->
+
+    <resources>
+      <includes><include>resource/**</include></includes>
+    </resources>
+
+    <checkstyle>
+    </checkstyle>
+    <jars>
+    </jars>
+  </build>
+</project>

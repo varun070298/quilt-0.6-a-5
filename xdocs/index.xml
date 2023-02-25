@@ -1,0 +1,249 @@
+<document>
+  <properties>
+    <title>Quilt</title>
+      <author email="jddixon@users.sourceforge.net">Jim Dixon</author>
+  </properties>
+  <body>
+    <section name="Quilt">
+      <p>
+        <em>Quilt</em> is a Java software development tool that measures 
+        <b>coverage</b>, the extent to which unit testing exercises the 
+        software under test.  It is optimized for use with the 
+        <a href="http://www.junit.org">JUnit</a> 
+        unit test package, the 
+        <a href="http://ant.apache.org">Ant</a>
+        Java build facility, and the 
+        <a href="http://www.maven.org">Maven</a> 
+        project management toolkit.
+      
+        </p><p>Quilt is currently undergoing a major transformation.  
+        The first release of the new version, 0.6a, became available 
+        on 31 August 2003.  This is now forking off as a separate 
+        project while development of the 0.4/0.5 branch will continue
+        at Codehaus.  More on the changes in progress 
+        <a href="#0.6a">below.</a>
+        
+      </p><p>This is the Quilt 0.6a Web site.  
+        <font color="red">The earlier <b>Quilt 0.4</b> Web site is available 
+        <a href="/quilt-0.4">here.</a> </font>
+      </p>
+    </section>
+    <section name="Coverage">
+      <p> The primary aim of the Quilt Project is the development of tools
+        for measuring coverage in the testing of Java programs.
+        Coverage is a measure of the extent to which tests exercise the
+        code under test.
+
+        </p><p> The simplest measure of coverage is statement coverage.
+        For example, if there are 100 lines in a program and only 75 are
+        actually used when tests are being run, then the coverage may be
+        said to be 75%.  
+        
+        </p><p> This is a simple but very significant check on the testing
+        being done.  If 75% of the code is covered, then 25% isn't: 
+        <em>you don't know whether 25% of your application works</em>.
+        
+        </p><p>Quilt's coverage tools can't actually help you write 
+        better tests or better code.  But they <em>can</em> tell you 
+        whether or not your code is being tested.</p>
+    </section>
+    <section name="How It Works">
+      <p>Quilt intercepts code as it is being loaded and
+        alters it.  It doesn't work at the source code level.  It
+        manipulates compiled <em>classes</em> and their <em>bytecode</em>, 
+        the machine code of the Java Virtual Machine, the JVM.
+        </p><p>To measure coverage, Quilt inserts <em>instrumentation</em>,
+        typically bytecode that increments counters whenever a block of
+        code or branch is executed.  This is done transparently.  The
+        programmer simply sets a switch at test time.  Then when 
+        program modules are loaded for testing, Quilt instrumentation 
+        is automatically added and coverage reports generated.
+      </p>
+    </section>
+    <section name="Using Quilt with Other Software Development Tools">
+      <p>The current version of Quilt is used with the JUnit unit test
+        program.  Typically you will run unit tests under they succeed.
+        Then, when the debugging is largely done, you run Quilt coverage 
+        checks as well
+        as JUnit unit tests. If the Quilt run shows that you need more testing, 
+        if coverage is too low, 
+        you add more tests or alter the ones that you have until you are
+        satisfied with the level of coverage.</p>
+
+      <p>One of the objectives of the Quilt project is 
+        <em>full JUnit interoperability</em>,
+        in that sense that the interface to Quilt should be a superset
+        of the JUnit interface.  If you are used to working with JUnit,
+        you should be able to work with Quilt in exactly the same way.
+        
+        </p><p>Quilt and JUnit can also be used in conjunction with 
+        Ant, Java's equivalent of the make command-line build 
+        facility.  Quilt's Ant task, the module interfacing Ant with
+        Quilt and JUnit is complete and available either via CVS or
+        in tarball form. </p>
+      
+        <p>As you can see from inspecting the Quilt distribution,
+        the Maven project management software package has also been
+        used in developing Quilt.  Maven is used primarily for Web
+        site and project documentation generation.  Quilt is being
+        integrated back into Maven as part of the development effort;
+        that is, a Quilt goal for Maven is in development.</p>
+        
+        <p>In the somewhat longer term, we expect to integrate 
+        Quilt into other software development packages, in particular 
+        into the Eclipse IDE.  However, work on this has not yet
+        begun.</p>
+    </section>
+    <section name="Other Applications">
+      <p>Quilt does its magic using a variety of tools.  These 
+        include</p>
+      <ul>
+        <li> transforming class loaders, which load a compiled Java
+          class and change it in some way, typically while 
+          leaving its semantics unchanged</li>
+        <li> instrumenting class loaders, a special case of 
+          transforming loaders which insert counters and other
+          blocks of bytecode for monitoring program behavior</li>
+        <li> a class synthesizer, which builds a class at run time,
+          from a description, rather than loading it from disk</li>
+        <li> tools for generating and modifying method control
+          flow graphs</li>
+        <li> report generation facilities </li>
+      </ul>
+      <p>These and other Quilt components can be used to build other 
+        tools for monitoring and modifying Java code at run time.
+      </p>
+    </section>
+    <section name="Project Status">
+      <p> <a name="0.6a"/>
+        At the time of writing, there are three distinct versions of 
+        Quilt. Quilt 0.4 has been available for download since 
+        mid-June 2002.  <b>quilt</b> on the Sourceforge CVS site is 
+        Quilt 0.5a as 
+        of August/September 2002.  And <b>quilt-dev</b> in CVS is 
+        Quilt 0.6a, which is mostly new code, written along the same
+        lines and inspired by the earlier version.</p>
+
+      <p>0.6a5 is the final version of this branch of the code.  
+        Quilt 0.4/0.5 development will continue at 
+        <a href="http://cvs.codehaus.org/viewcvs.cgi/quilt/?root=codehaus">
+          Codehaus</a>, while the 0.6 branch will live on, 
+        at least in spirit, at 
+        <a href="http://jxcl.sourceforge.net">The JXCL Project</a>
+        on Sourceforge.</p>
+
+      <table>
+        <tr> <th>version</th><th>form</th><th>link</th><th>when</th> </tr>
+        <tr>
+          <td>0.6a</td><td>CVS</td>
+          <td>
+            <a href="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/quilt/quilt-dev">quilt-dev</a></td>
+          <td>now</td>
+        </tr>
+        
+        <tr>
+          <td>0.6a-5</td><td>binary distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-5-bin.tar.gz?download">quilt-0.6-a-5-bin.tar.gz</a></td>
+          <td>20 October 2003</td>
+        </tr>
+        <tr>
+          <td>0.6a-5</td><td>source distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-5-src.tar.gz?download">quilt-0.6-a-5-src.tar.gz</a></td>
+          <td>20 October 2003</td>
+        </tr>  
+        
+        <tr>
+          <td>0.6a-4</td><td>binary distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-4-bin.tar.gz?download">quilt-0.6-a-4-bin.tar.gz</a></td>
+          <td>16 October 2003</td>
+        </tr>
+        <tr>
+          <td>0.6a-4</td><td>source distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-4-src.tar.gz?download">quilt-0.6-a-4-src.tar.gz</a></td>
+          <td>16 October 2003</td>
+        </tr> 
+        
+        <tr>
+          <td>0.6a-3</td><td>binary distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-3-bin.tar.gz?download">quilt-0.6-a-3-bin.tar.gz</a></td>
+          <td>12 October 2003</td>
+        </tr>
+        <tr>
+          <td>0.6a-3</td><td>source distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-3-src.tar.gz?download">quilt-0.6-a-3-src.tar.gz</a></td>
+          <td>12 October 2003</td>
+        </tr> 
+
+        <tr>
+          <td>0.6a-2</td><td>binary distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-2-bin.tar.gz?download">quilt-0.6-a-2-bin.tar.gz</a></td>
+          <td>12 September 2003</td>
+        </tr>
+        <tr>
+          <td>0.6a-2</td><td>source distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-2-src.tar.gz?download">quilt-0.6-a-2-src.tar.gz</a></td>
+          <td>12 September 2003</td>
+        </tr>  
+        <tr>
+          <td>0.6a-1</td><td>binary distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-1-bin.tar.gz?download">quilt-0.6-a-1-bin.tar.gz</a></td>
+          <td>31 August 2003</td>
+        </tr>
+        <tr>
+          <td>0.6a-1</td><td>source distribution, tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.6-a-1-src.tar.gz?download">quilt-0.6-a-1-src.tar.gz</a></td>
+          <td>31 August 2003</td>
+        </tr>  
+        <tr>
+          <td>0.5a</td><td>CVS</td>
+          <td>
+            <a href="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/quilt/quilt">quilt</a></td>
+          <td>now</td>
+        </tr>
+        <tr>
+          <td>0.4</td><td>tarball</td>
+          <td>
+            <a href="http://prdownloads.sourceforge.net/quilt/quilt-0.4-src.tar.gz?download">quilt-0.4-src.tar.gz</a></td>
+          <td>now</td>
+        </tr> 
+      </table>
+
+      <p>0.6a1 tarballs became available on
+        31 August 2003.  This release contained a fully-functional 
+        <code>QuiltTask,</code> allowing JUnit and Quilt to be run 
+        from Ant. The <code>QuiltTask</code> and <code>TestRunner</code>
+        modules have been thoroughly tested and have no known bugs
+        when run without coverage tests.</p>
+        
+      <p>0.6a4 remains primarily a developer release.  The Quilt 
+        classloader and its class transformation framework are 
+        connected to the QuiltTask front end.  Simple statement
+        coverage reports are generated.  However, there are at least 
+        eight significant bugs.  Work on the upcoming 0.6a5 release will
+        concentrate on bug fixes rather than code enhancements.</p>
+      
+      <p>Some users
+        may wish to experiment with Quilt's Ant task, test runner, and
+        report formatters, which we believe will become a significant 
+        improvement on the existing Ant JUnit task.</p>
+        
+      <p>After a reasonable 
+        period of time, when the 0.6 release 
+        has been reviewed and proved satisfactory, the various other 
+        versions currently found in CVS will be withdrawn to reduce 
+        confusion.  This is unlikely to occur before 1 January 2004.
+      </p>
+      
+    </section>
+  </body>
+</document>

@@ -1,0 +1,275 @@
+  <!DOCTYPE html PUBLIC "-//CollabNet//DTD XHTML 1.0 Transitional//EN"
+      "http://www.collabnet.com/dtds/collabnet_transitional_10.dtd">
+
+  
+    
+    
+      
+  
+
+  <html>
+    <head>
+      <title>JUnit Quilt - Readme First</title>
+
+      <style type="text/css">
+        @import url("./style/tigris.css");
+        @import url("./style/maven.css");
+      </style>
+      <script type="text/javascript">
+        if (document.layers) {
+          document.writeln('<link rel="stylesheet" type="text/css" href="./style/ns4_only.css" media="screen" /><link rel="stylesheet" type="text/css" href="./style/maven_ns4_only.css" media="screen" />')
+        }
+      </script>
+      <link rel="stylesheet" type="text/css" href="./style/print.css" media="print" />
+
+              <meta name="author" value="David Dixon-Peugh"/>
+        <meta name="email" value="ddp@apache.org" />
+      
+    </head>
+
+    <body class="composite" marginwidth="0" marginheight="0">
+      <div id="banner">
+        <table border="0" cellspacing="0" cellpadding="8" width="100%">
+          <tr>
+            <td>
+              
+                
+                                
+                <a href="http://quilt.sourceforge.net/">
+                                  <img src="http://sourceforge.net/sflogo.php?group_id=32481&type=5" align="left" alt="David Dixon-Peugh" border="0" />
+                                </a>
+                
+                          </td>
+            <td>
+              <div align="right" id="login">
+                
+                  
+                  <a href="http://quilt.sourceforge.net/">
+                                      <img src="./images/quilt02.gif" align="right" alt="junit-quilt" border="0"/>
+                                    </a>
+                              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="breadcrumbs">
+        <table border="0" cellspacing="0" cellpadding="4" width="100%">
+          <tr>
+            <td> 
+                              <div align="right">
+                <a href="http://quilt.sourceforge.net/wiki/">Quilt Wiki</a>
+         |           <a href="http://www.sourceforge.net/projects/quilt">SF Project Page</a>
+         |           <a href="http://sourceforge.net/project/showfiles.php?group_id=32481">Download</a>
+         |           <a href="http://www.sourceforge.net/">Hosted by SourceForge</a>
+      </div>
+
+                          </td>
+          </tr>
+        </table>
+      </div>
+
+      <table border="0" cellspacing="0" cellpadding="8" width="100%" id="main">
+        <tr valign="top">
+          <td id="leftcol" width="20%">
+            <div id="navcolumn">
+
+                                <div>
+    <strong>Overview</strong>
+      <div>
+    <small>       <a href="./overview.html">Overview</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./goals.html">Goals</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./future.html">Future</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./readme.html">Readme</a>
+   </small>
+    
+  </div>
+  <div>
+    <small>       <a href="./release.html">Release Notes</a>
+   </small>
+    
+  </div>
+
+  </div>
+
+                        
+                            <div><strong>Project Documentation</strong>
+                <div><small><a href="./index.html">Front Page</a></small></div>
+                <div>
+                  <small><a href="./project-info.html">Project Info</a></small>
+                                                                                                                                                                                                        </div>
+                <div>
+                  <small><a href="./maven-reports.html">Project Reports</a></small>
+                                                                                                                                                                                                                                                                                                                                                                                                          </div>
+                                <div><small><a href="./apidocs/index.html">JavaDocs</a></small></div>
+                <div><small><a href="./xref/index.html">Source XReference</a></small></div>
+                                <div><small><a href="http://jakarta.apache.org/turbine/maven/development-process.html">Development Process</a></small></div>
+              </div>
+
+            </div>
+          </td>
+          <td>
+            <div id="bodycol">
+                            <div class="app">
+                  <div class="h3">
+    <h3><a name="Overview">Overview</a></h3>
+    <p>
+JUnit Quilt was developed to provide a simple method
+of measuring code coverage for when you execute tests.
+The way its done today, is through the use of JUnit.
+It also assumes a familiarity with Ant, as Ant is the
+prefered way of triggering Quilt.  (And my prefered
+way of running JUnit.)
+</p>
+<p>
+In the future, the number of locations that you can
+use Quilt is likely to change, as well as the quality
+of the data that is produced.  (i.e. using Quilt in
+a Servlet Container, EJB Container, within an IDE, etc.)
+</p>
+<p>
+Be sure to let me know about any problems you run into
+with Quilt, and check back on the SourceForge page
+frequently to see if there are any changes.
+</p>
+
+  </div>
+  <div class="h3">
+    <h3><a name="Version 0.4">Version 0.4</a></h3>
+    <p>
+The prefered way of running Version 0.4 is through Ant.
+The definition of the Ant task has changed from previous
+versions (unreleased, I believe.)
+</p>
+  <div class="h4">
+    <h4><a name="Defining the Ant Task">Defining the Ant Task</a></h4>
+    <p>
+To define the Ant task for triggering Quilt, you need to
+do two parts.  Define the Quilt Classpath, and actually
+define the task.
+</p>
+<div id="source">
+    <pre>
+
+&lt;path refid=&quot;quilt.classpath&quot;&gt;
+  &lt;pathelement location=&quot;${lib.repo}/quilt-0.4.jar&quot; /&gt;
+  &lt;pathelement location=&quot;${lib.repo}/bcel-5.0.jar&quot; /&gt;
+  &lt;pathelement location=&quot;${lib.repo}/commons-graph-0.8.jar&quot; /&gt;
+  &lt;pathelement location=&quot;${lib.repo}/commons-collections-2.0.jar&quot; /&gt;
+  &lt;pathelement location=&quot;${lib.repo}/colt-1.0.2.jar&quot; /&gt;
+&lt;/path&gt;
+
+</pre>
+</div>
+<div id="source">
+    <pre>
+
+&lt;taskdef name=&quot;quilt&quot;
+         classname=&quot;junit.quilt.ant.AntQuiltRunner&quot;
+         classpathref=&quot;quilt.classpath&quot; /&gt;
+
+</pre>
+</div>
+
+  </div>
+  <div class="h4">
+    <h4><a name="Using the Quilt Task">Using the Quilt Task</a></h4>
+    <p>
+Now that the Quilt task is defined, you need to actually
+call it.  Here is an example:
+</p>
+<div id="source">
+    <pre>
+
+&lt;quilt reportdir=&quot;${reports.dir}&quot;
+       register=&quot;junit.quilt.cover.ball94.B94Registry&quot;
+       reporter=&quot;junit.quilt.reports.XMLSummary&quot;
+       packages=&quot;${package.prefix}&quot;&gt;
+  &lt;classpath&gt;
+    &lt;pathelement location=&quot;${build.dir}/classes&quot; /&gt;
+    &lt;pathelement location=&quot;${build.dir}/test&quot; /&gt;
+    &lt;fileset dir=&quot;${lib.dir}&quot;&gt;
+      &lt;include name=&quot;**/*.jar&quot; /&gt;
+    &lt;/fileset&gt;
+  &lt;/classpath&gt;
+
+  &lt;fileset dir=&quot;${test.src}&quot;&gt;
+    &lt;include name=&quot;**/AllTests.java&quot; /&gt;
+  &lt;/fileset&gt;
+&lt;/quilt&gt;
+
+</pre>
+</div>
+<p><b>reportdir</b> is the directory where coverage
+reports should be output to.
+</p>
+<p><b>registry</b> is the registry class for the 
+instrumentation algorithm to use.  The following
+algorithms are available:
+<ul>
+  <li><b>State Machine</b> - junit.quilt.cover.state.StateMachineRegistry</li>
+  <li><b>Ball94</b> - junit.quilt.cover.ball94.B94Registry</li>
+</ul>
+State Machine does both branch and statement coverage.  B94 only does
+branch coverage at this time.
+</p>
+<p><b>reporter</b> is the report generator to be used.
+The following reporters are available:
+<ul>
+  <li><b>XMLSummary</b> - junit.quilt.reports.XMLSummary</li>
+  <li><b>XMLReport</b> - junit.quilt.reports.XMLReport</li>
+  <li><b>TreeSummary</b> - junit.quilt.reports.TreeSummary</li>
+</ul>
+The summary reports only contain information on percent of
+coverage.  XMLReport does have more detail, unfortunately, the
+detail isn't quite good enough to warent using it.
+</p>
+<p><b>packages</b> is a comma seperated list of package names
+to instrument.  If the class doesn't start with one of these
+packages, it will not be instrumented, and no data will be
+available.
+</p>
+<p><b>classpath</b> is the complete classpath required in order
+to execute the tests.
+</p>
+<p><b>fileset</b> is the collection of either Java or Class files
+which are the JUnit tests to be executed.
+</p>
+
+  </div>
+
+  </div>
+
+                
+                
+                
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div id="footer">
+        <table border="0" cellspacing="0" cellpadding="4">
+          <tr>
+            <td>
+                                                                  &copy; 2001-2002, David Dixon-Peugh
+                                                              </td>
+          </tr>
+        </table>
+      </div>
+
+    </body>
+  </html>
